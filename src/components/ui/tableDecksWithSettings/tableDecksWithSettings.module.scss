@@ -1,0 +1,33 @@
+.common {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.blockTitleButton {
+  display: flex;
+  justify-content: space-between;
+}
+
+.blockSettings {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+
+  height: 100px;
+}
+
+.tabPanel {
+  margin-bottom: 20px;
+}
+
+.slider {
+  margin-bottom: 20px;
+}
+
+.buttonIconDelete {
+  margin-bottom: 20px;
+}
+
+.pagination {
+  margin-top: 20px;
+}
