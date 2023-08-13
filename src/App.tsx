@@ -2,12 +2,19 @@ import { useState } from 'react'
 
 import { NavLink, Outlet } from 'react-router-dom'
 
+import { DeleteIcon } from './assets/icons/deleteIcon.tsx'
+import { EditIcon } from './assets/icons/editIcon.tsx'
 import { Logout } from './assets/icons/iconLogOut.tsx'
+import { IconMoreVerticalOutline } from './assets/icons/iconMoreVerticalOutline.tsx'
+import { IconMyProfile } from './assets/icons/iconMyProfile.tsx'
+import iconUser from './assets/icons/iconUser.png'
+import { PlayIcon } from './assets/icons/playIcon.tsx'
 import {
   Button,
   CardComponent,
   Checkbox2,
   CheckboxUniversal,
+  DropDownComponent,
   itemTabType,
   NameAndAvatarComponent,
   Pagination,
@@ -147,6 +154,42 @@ export function App() {
   ]
   const sendDataToServer = (value: string) => {
     alert('sendDataToServer...   ' + value)
+  }
+  //DropDownMeny
+  const functon1 = () => {
+    alert('Есть реакция1')
+  }
+  const functon2 = () => {
+    alert('Есть реакция2')
+  }
+  const functon3 = () => {
+    alert('Есть реакция3')
+  }
+  const functon4 = () => {
+    alert('Есть реакция4')
+  }
+  const functon5 = () => {
+    alert('Есть реакция5')
+  }
+
+  const state1 = [
+    {
+      id: 1,
+      icon: <IconMyProfile width="22" height="22" />,
+      name: 'My Profile',
+      callback: functon1,
+    },
+    { id: 2, icon: <Logout width="20" height="20" />, name: 'Sing Out', callback: functon2 },
+  ]
+  const state2 = [
+    { id: 3, icon: <PlayIcon width="22" height="22" />, name: 'Learn', callback: functon3 },
+    { id: 4, icon: <EditIcon width="20" height="20" />, name: 'Edit', callback: functon4 },
+    { id: 5, icon: <DeleteIcon width="20" height="20" />, name: 'Delete', callback: functon5 },
+  ]
+  const dataHeader = {
+    icon: <img src={iconUser} style={{ height: '50px' }} />,
+    name: 'Павел',
+    gmail: 'p&pavel@gmail.com',
   }
 
   return (
@@ -306,8 +349,19 @@ export function App() {
       <div>
         <TableDecksWithSettings />
       </div>
-      <div>
+      <div style={{ padding: '5rem' }}>
         <NameAndAvatarComponent />
+      </div>
+      <div style={{ padding: '8rem' }}>
+        <DropDownComponent
+          data={state1}
+          dataHeader={dataHeader}
+          component={<NameAndAvatarComponent />}
+        />
+        <DropDownComponent
+          data={state2}
+          component={<IconMoreVerticalOutline width="33" height="33" />}
+        />
       </div>
     </div>
   )
