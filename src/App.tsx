@@ -9,6 +9,7 @@ import {
   Checkbox2,
   CheckboxUniversal,
   itemTabType,
+  NameAndAvatarComponent,
   Pagination,
   PaginationAndSelect,
   PaginationSamurai,
@@ -304,6 +305,9 @@ export function App() {
       </div>
       <div>
         <TableDecksWithSettings />
+      </div>
+      <div>
+        <NameAndAvatarComponent />
       </div>
     </div>
   )

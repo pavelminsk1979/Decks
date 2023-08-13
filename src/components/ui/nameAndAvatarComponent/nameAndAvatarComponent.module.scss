@@ -1,0 +1,14 @@
+.nameAndAvatar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+}
+
+.name {
+  border-bottom: 2px solid var(--color-dark-300);
+}
+
+.icon {
+  height: 50px;
+}
