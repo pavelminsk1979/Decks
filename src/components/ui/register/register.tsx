@@ -51,7 +51,7 @@ export const Register = () => {
       <DevTool control={control} />
       <CardComponent className={st.common}>
         <Typography className={st.singIn} variant="large">
-          Sing In
+          Sing Up
         </Typography>
         <ControlTextField
           sizeWidthTextField="21.75rem"

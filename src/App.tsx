@@ -1,3 +1,42 @@
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+
+import { Header } from './components/ui'
+
+export function App() {
+  const navigate = useNavigate()
+
+  const isLoggedIn = false
+
+  const handlerOnClick = () => {
+    navigate('/register')
+  }
+
+  return (
+    <div>
+      <Header handlerOnClick={handlerOnClick} isLoggedIn={isLoggedIn} />
+      <div>
+        <div>
+          <NavLink to={'/login'}>нажми и перейди на login</NavLink>
+        </div>
+        <div>
+          <NavLink to={'/register'}>нажми и перейди на register</NavLink>
+        </div>
+        <div>
+          <NavLink to={'/decks'}>нажми и перейди на Таблицу с КОЛОДАМИ</NavLink>
+        </div>
+        <div>
+          <NavLink to={'/editProfile'}>нажми и перейди на EditProfile</NavLink>
+        </div>
+        <div>
+          <NavLink to={'/profile'}>нажми и перейди на Profile</NavLink>
+        </div>
+      </div>
+      <Outlet />
+    </div>
+  )
+}
+
+/*
 import { useState } from 'react'
 
 import { NavLink, Outlet } from 'react-router-dom'
@@ -75,7 +114,7 @@ export function App() {
   //CHECKBOX
   const checkboxText = 'Некоторый текст'
   const [valueCheckboxTrue, setValueCheckboxTrue] = useState(true)
-  /*    const [valueCheckboxFalse,setValueCheckboxFalse] = useState(false)*/
+  /!*    const [valueCheckboxFalse,setValueCheckboxFalse] = useState(false)*!/
 
   const handlerOnChangeCheckbox = (value: boolean) => {
     setValueCheckboxTrue(value)
@@ -243,15 +282,15 @@ export function App() {
           />
         </div>
       </div>
-      {/* Slider*/}
+      {/!* Slider*!/}
       <div>
         <SliderBar onValueCommit={handlerOnValueCommit} startArrayValue={startArrayValue} />
       </div>
       <div>
-        {/* TabPanel*/}
+        {/!* TabPanel*!/}
         <TabPanel active={active} data={dataTabPanel} title="Title" />
       </div>
-      {/*Button*/}
+      {/!*Button*!/}
       <div>
         <Button onClick={handlerOnClickButton}>Hello</Button>
 
@@ -269,7 +308,7 @@ export function App() {
           <Logout width="23" height="23" /> Hello
         </Button>
       </div>
-      {/*CheckboxUniversal*/}
+      {/!*CheckboxUniversal*!/}
       <div>
         <CheckboxUniversal
           disabled={false}
@@ -284,7 +323,7 @@ export function App() {
           value={valueCheckboxFalse}
         />
       </div>
-      {/*SelectControl*/}
+      {/!*SelectControl*!/}
       <div>
         <SelectControl
           onValueChange={handlerOnValueChange}
@@ -317,6 +356,9 @@ export function App() {
         </div>
         <div>
           <NavLink to={'/register'}>нажми и перейди на register</NavLink>
+        </div>
+        <div>
+          <NavLink to={'/decks'}>нажми и перейди на Таблицу с КОЛОДАМИ</NavLink>
         </div>
         <div>
           <NavLink to={'/forgotYourPassword'}>нажми и перейди на ForgotYourPassword</NavLink>
@@ -375,13 +417,4 @@ export function App() {
   )
 }
 
-/*
-export function App() {
-  return (
-    <div>
-      <div>55555</div>
-      <div>2222</div>
-      <div>Hello</div>
-    </div>
-  )
-}*/
+*/

@@ -21,7 +21,7 @@ export const Header = ({ isLoggedIn, handlerOnClick }: PropsType) => {
         {isLoggedIn ? (
           <NameAndAvatarComponent />
         ) : (
-          <Button onClick={handlerOnClick}>Sing in</Button>
+          <Button onClick={handlerOnClick}>Sing Up</Button>
         )}
       </div>
     </div>
