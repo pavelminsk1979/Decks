@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
+import { useGetCardsQuery } from '../../../service/decks/serveceDecks.ts'
 import { Button } from '../button'
 import { PaginationSamurai } from '../paginationSamurai'
 import { SliderBar } from '../slider'
@@ -12,6 +13,7 @@ import { Typography } from '../typography'
 import st from './tableDecksWithSettings.module.scss'
 
 export const TableDecksWithSettings = () => {
+  const {} = useGetCardsQuery()
   const [valueInput, setValueInput] = useState('')
 
   const handlerSendInputValue = (valueInput: string) => {

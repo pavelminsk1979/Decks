@@ -52,7 +52,7 @@ export const Login = () => {
         />
         <ControlCheckbox2 label="Remember  me" name="rememberMe" control={control} />
         <Typography className={st.forgotPassword} variant="body2">
-          <Link to={'/forgotYourPassword'}>Forgot Password?</Link>
+          <Link to={'/register'}>Forgot Password?</Link>
         </Typography>
         <Button className={st.button} type={'submit'} fullWidth={true}>
           Sing In

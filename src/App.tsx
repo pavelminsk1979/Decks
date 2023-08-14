@@ -25,9 +25,6 @@ export function App() {
           <NavLink to={'/decks'}>нажми и перейди на Таблицу с КОЛОДАМИ</NavLink>
         </div>
         <div>
-          <NavLink to={'/editProfile'}>нажми и перейди на EditProfile</NavLink>
-        </div>
-        <div>
           <NavLink to={'/profile'}>нажми и перейди на Profile</NavLink>
         </div>
       </div>

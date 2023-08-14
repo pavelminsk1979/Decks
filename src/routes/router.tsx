@@ -1,10 +1,10 @@
 import { createBrowserRouter, Navigate, Outlet, RouteObject } from 'react-router-dom'
 
-import { App } from '../App.tsx'
-import { EditProfile, Login, Profile, Register, TableDecksWithSettings } from '../components/ui'
+import { Login, Profile, Register, TableDecksWithSettings } from '../components/ui'
+import {App} from "../App.tsx";
 
 function PrivateRoutes() {
-  const isLoggedIn = false
+  const isLoggedIn = true
 
   return isLoggedIn ? <Outlet /> : <Navigate to="/login" />
 }
@@ -13,10 +13,6 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/decks',
     element: <TableDecksWithSettings />,
-  },
-  {
-    path: '/editProfile',
-    element: <EditProfile />,
   },
   {
     path: '/profile',
