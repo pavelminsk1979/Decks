@@ -15,6 +15,7 @@ import {
   Checkbox2,
   CheckboxUniversal,
   DropDownComponent,
+  Header,
   itemTabType,
   NameAndAvatarComponent,
   Pagination,
@@ -99,6 +100,12 @@ export function App() {
   //PAGINATOR
   const handlerOnChange = (page: number) => {
     alert(page)
+  }
+  //Header
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const handlerOnClick = () => {
+    setIsLoggedIn(true)
   }
   //TABLE-DECKS
   const dataContentTable = [
@@ -346,7 +353,8 @@ export function App() {
           sendDataToServer={sendDataToServer}
         />
       </div>
-      <div>
+      <Header handlerOnClick={handlerOnClick} isLoggedIn={isLoggedIn} />
+      <div style={{ padding: '3rem' }}>
         <TableDecksWithSettings />
       </div>
       <div style={{ padding: '5rem' }}>
