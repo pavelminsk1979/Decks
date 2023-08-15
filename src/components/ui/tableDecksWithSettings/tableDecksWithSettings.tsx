@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
 import { useGetCardsQuery } from '../../../service/decks/serveceDecks.ts'
+import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
 import { Button } from '../button'
 import { PaginationSamurai } from '../paginationSamurai'
 import { SliderBar } from '../slider'
@@ -13,7 +14,12 @@ import { Typography } from '../typography'
 import st from './tableDecksWithSettings.module.scss'
 
 export const TableDecksWithSettings = () => {
-  const {} = useGetCardsQuery()
+  const { data } = useGetCardsQuery()
+
+  console.log(data)
+
+  const decksItems: DecksItemsType[] | undefined = data?.items
+
   const [valueInput, setValueInput] = useState('')
 
   const handlerSendInputValue = (valueInput: string) => {
@@ -37,68 +43,6 @@ export const TableDecksWithSettings = () => {
   const handlerOnValueCommit = (value: number[]) => {
     alert(`Вы поставили левый ползунок на ${value[0]}  а правый на ${value[1]}`)
   }
-  const dataContentTable = [
-    {
-      title: 'Pack Name1',
-      cardsCount: 10,
-      updated: '2023-07-07',
-      createdBy: 'Ivan Ivanov',
-    },
-    {
-      title: 'Pack Name2',
-      cardsCount: 5,
-      updated: '2023-07-06',
-      createdBy: 'Ivan Ivanov',
-    },
-    {
-      title: 'Pack Name3',
-      cardsCount: 8,
-      updated: '2023-07-05',
-      createdBy: 'Ivan Ivanov',
-    },
-    {
-      title: 'Pack Name4',
-      cardsCount: 3,
-      updated: '2023-07-07',
-      createdBy: 'Ivan Ivanov',
-    },
-    {
-      title: 'Pack Name5',
-      cardsCount: 12,
-      updated: '2023-07-04',
-      createdBy: 'Ivan Ivanov',
-    },
-    {
-      title: 'Pack Name6',
-      cardsCount: 10,
-      updated: '2023-07-07',
-      createdBy: 'Ivan Ivanov',
-    },
-    {
-      title: 'Pack Name7',
-      cardsCount: 5,
-      updated: '2023-07-06',
-      createdBy: 'Ivan Ivanov',
-    },
-    {
-      title: 'Pack Name8',
-      cardsCount: 8,
-      updated: '2023-07-05',
-      createdBy: 'Ivan Ivanov',
-    },
-    {
-      title: 'Pack Name9',
-      cardsCount: 3,
-      updated: '2023-07-07',
-      createdBy: 'Ivan Ivanov',
-    },
-    {
-      title: 'Pack Name10',
-      cardsCount: 12,
-      updated: '2023-07-04',
-      createdBy: 'Ivan Ivanov',
-    },
-  ]
 
   const dataHeadersTable = [
     {
@@ -151,7 +95,7 @@ export const TableDecksWithSettings = () => {
         </Button>
       </div>
       <TableDecks
-        dataContentTable={dataContentTable}
+        decksItems={decksItems}
         dataHeadersTable={dataHeadersTable}
         sendDataToServer={sendDataToServer}
       />

@@ -5,21 +5,16 @@ import { ArrowUpIcon } from '../../../assets/icons/arrowUpIcon.tsx'
 import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
 import { EditIcon } from '../../../assets/icons/editIcon.tsx'
 import { PlayIcon } from '../../../assets/icons/playIcon.tsx'
+import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
 
 import st from './tableDecks.module.scss'
 
-type DataItemType = {
-  title: string
-  cardsCount: number
-  updated: string
-  createdBy: string
-}
 type DataHeaderType = {
   key: string
   title: string
 }
 type PropsType = {
-  dataContentTable: DataItemType[]
+  decksItems: DecksItemsType[] | undefined
   dataHeadersTable: DataHeaderType[]
   sendDataToServer: (value: string) => void
 }
@@ -27,7 +22,7 @@ type SortType = {
   key: string
   direction: 'asc' | 'desc'
 } | null
-export const TableDecks = ({ dataContentTable, dataHeadersTable, sendDataToServer }: PropsType) => {
+export const TableDecks = ({ decksItems, dataHeadersTable, sendDataToServer }: PropsType) => {
   const [sort, setSort] = useState<SortType>(null)
   const handlerSort = (key: string) => {
     if (key !== 'action') {
@@ -68,12 +63,12 @@ export const TableDecks = ({ dataContentTable, dataHeadersTable, sendDataToServe
         </tr>
       </thead>
       <tbody>
-        {dataContentTable.map(item => (
-          <tr key={item.title} className={st.tr}>
-            <td className={st.tdCommonStyle}>{item.title}</td>
-            <td className={st.tdCommonStyle}>{item.cardsCount}</td>
-            <td className={st.tdCommonStyle}>{item.updated}</td>
-            <td className={st.tdCreatedBy}>{item.createdBy}</td>
+        {decksItems?.map(deck => (
+          <tr key={deck.id} className={st.tr}>
+            <td className={st.tdCommonStyle}>{deck.name}</td>
+            <td className={st.tdCommonStyle}>{deck.cardsCount}</td>
+            <td className={st.tdCommonStyle}>{new Date(deck.updated).toLocaleString('ru-Ru')}</td>
+            <td className={st.tdCreatedBy}>{deck.author.name}</td>
             <td className={st.tdIcons}>
               <PlayIcon />
               <EditIcon />

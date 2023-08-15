@@ -1,8 +1,11 @@
+import LinearProgress from '@mui/material/LinearProgress'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 
 import { Header } from './components/ui'
+import { useGetCardsQuery } from './service/decks/serveceDecks.ts'
 
 export function App() {
+  const { isLoading } = useGetCardsQuery()
   const navigate = useNavigate()
 
   const isLoggedIn = false
@@ -14,6 +17,7 @@ export function App() {
   return (
     <div>
       <Header handlerOnClick={handlerOnClick} isLoggedIn={isLoggedIn} />
+      {isLoading && <LinearProgress color="inherit" />}
       <div>
         <div>
           <NavLink to={'/login'}>нажми и перейди на login</NavLink>

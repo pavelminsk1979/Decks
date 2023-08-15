@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate, Outlet, RouteObject } from 'react-router-dom'
 
+import { App } from '../App.tsx'
 import { Login, Profile, Register, TableDecksWithSettings } from '../components/ui'
-import {App} from "../App.tsx";
 
 function PrivateRoutes() {
   const isLoggedIn = true
@@ -28,6 +28,14 @@ const publicRoutes: RouteObject[] = [
     path: '/register',
     element: <Register />,
   },
+  {
+    path: '/404',
+    element: <h2>404: СТРАНИЦА НЕ НАЙДЕНА...ОШИБКА!</h2>,
+  },
+  {
+    path: '/',
+    element: <Login />,
+  },
 ]
 
 export const router = createBrowserRouter([
@@ -36,14 +44,6 @@ export const router = createBrowserRouter([
     element: <App />,
     errorElement: <Navigate to="/404" />,
     children: [
-      {
-        path: '/404',
-        element: <h2>404: СТРАНИЦА НЕ НАЙДЕНА...ОШИБКА!</h2>,
-      },
-      {
-        path: '/',
-        element: <Login />,
-      },
       {
         children: privateRoutes,
         element: <PrivateRoutes />,
