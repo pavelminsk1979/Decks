@@ -6,9 +6,19 @@ import { SelectControl } from '../select'
 import st from './paginationSamurai.module.scss'
 
 type PropsType = {
-  allElements: number
+  amountDecksInOnePage: number
+  allElements?: number
+  setCurrentPage: (currentPage: number) => void
+  valueCurrentPage: number
+  setAmountElementsInOnePage: (amountElementsInOnePage: number) => void
 }
-export const PaginationSamurai = ({ allElements }: PropsType) => {
+export const PaginationSamurai = ({
+  allElements,
+  setCurrentPage,
+  valueCurrentPage,
+  setAmountElementsInOnePage,
+  amountDecksInOnePage,
+}: PropsType) => {
   const stateSelectItems = [
     { value: '1', text: '5' },
     { value: '2', text: '8' },
@@ -17,16 +27,17 @@ export const PaginationSamurai = ({ allElements }: PropsType) => {
     { value: '5', text: '15' },
   ]
   let widthBlockSelector = 80
-  let headerSelector = '10'
+  let headerSelector = '7'
 
-  const [amountElementsInOnePage, setAmountElementsInOnePage] = useState(10)
-  const handlerOnValueChange = (amountElementsInOnePage = '10') => {
-    setAmountElementsInOnePage(Number(amountElementsInOnePage))
-
-    /*сделать запрос на сервер чтоб возвращал данное количество элементов и они будут отрисованы на одной странице */
+  const handlerOnValueChange = (amountElementsInOnePage = 7) => {
+    setAmountElementsInOnePage(amountElementsInOnePage)
   }
 
-  let amountPages = Math.ceil(allElements / amountElementsInOnePage)
+  let amountPages = 0
+
+  if (allElements) {
+    amountPages = Math.ceil(allElements / amountDecksInOnePage)
+  }
   let maxPart = amountPages / 10
 
   let arrayNumbers = []
@@ -35,9 +46,8 @@ export const PaginationSamurai = ({ allElements }: PropsType) => {
     arrayNumbers.push(i)
   }
 
-  const onClickHandler = (numberPage: any) => {
-    alert(`на сервер отправится запрос ЗА ЭЛЕМЕНТАМИ с страницы данного номера ${numberPage}`)
-    /*на сервер отправится запрос ЗА ЭЛЕМЕНТАМИ с страницы данного номера*/
+  const onClickHandler = (currentPage: number) => {
+    setCurrentPage(currentPage)
   }
 
   const [part, setPart] = useState(1)
@@ -74,7 +84,7 @@ export const PaginationSamurai = ({ allElements }: PropsType) => {
             <span
               key={el}
               onClick={() => onClickHandler(el)}
-              className={false ? st.activeNumber : st.number}
+              className={el === valueCurrentPage ? st.activeNumber : st.number}
             >
               {el}
             </span>

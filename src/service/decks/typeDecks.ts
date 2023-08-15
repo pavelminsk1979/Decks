@@ -28,3 +28,13 @@ export type DecksItemsType = {
   cardsCount: number
   author: DecksItemsAuthorType
 }
+
+export type ArgsGetDecksResponseType = {
+  minCardsCount?: number
+  maxCardsCount?: number
+  name?: string
+  authorId?: string
+  orderBy?: string
+  currentPage?: number
+  itemsPerPage?: number
+}

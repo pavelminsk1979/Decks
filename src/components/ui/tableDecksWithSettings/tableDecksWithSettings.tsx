@@ -14,9 +14,19 @@ import { Typography } from '../typography'
 import st from './tableDecksWithSettings.module.scss'
 
 export const TableDecksWithSettings = () => {
-  const { data } = useGetCardsQuery()
+  const [valueCurrentPage, setValueCurrentPage] = useState<number>(1)
+  const [amountDecksInOnePage, setAmountDecksInOnePage] = useState(7)
 
-  console.log(data)
+  const { data } = useGetCardsQuery({
+    currentPage: valueCurrentPage,
+    itemsPerPage: amountDecksInOnePage,
+  })
+  const setCurrentPage = (currentPage: number) => {
+    setValueCurrentPage(currentPage)
+  }
+  const setAmountElementsInOnePage = (amountElementsInOnePage: number) => {
+    setAmountDecksInOnePage(amountElementsInOnePage)
+  }
 
   const decksItems: DecksItemsType[] | undefined = data?.items
 
@@ -100,7 +110,13 @@ export const TableDecksWithSettings = () => {
         sendDataToServer={sendDataToServer}
       />
       <div className={st.pagination}>
-        <PaginationSamurai allElements={1200} />
+        <PaginationSamurai
+          amountDecksInOnePage={amountDecksInOnePage}
+          setAmountElementsInOnePage={setAmountElementsInOnePage}
+          valueCurrentPage={valueCurrentPage}
+          setCurrentPage={setCurrentPage}
+          allElements={data?.pagination.totalItems}
+        />
       </div>
     </div>
   )

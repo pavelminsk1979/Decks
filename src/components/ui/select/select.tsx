@@ -12,7 +12,7 @@ type PropsType = {
   widthBlockSelector?: number
   stateSelectItems: ItemType[]
   headerSelector: string
-  onValueChange: (value: string | undefined) => void
+  onValueChange: (value: number) => void
 }
 
 export const SelectControl = ({
@@ -24,7 +24,7 @@ export const SelectControl = ({
   const handlerOnValueChange = (event: string) => {
     let res = stateSelectItems.find(e => e.value === event)
 
-    onValueChange(res?.text)
+    onValueChange(Number(res?.text))
   }
 
   return (
