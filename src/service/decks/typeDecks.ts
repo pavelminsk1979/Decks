@@ -34,7 +34,7 @@ export type ArgsGetDecksResponseType = {
   maxCardsCount?: number
   name?: string
   authorId?: string
-  orderBy?: string
+  orderBy?: string | null
   currentPage?: number
   itemsPerPage?: number
 }

@@ -16,11 +16,20 @@ import st from './tableDecksWithSettings.module.scss'
 export const TableDecksWithSettings = () => {
   const [valueCurrentPage, setValueCurrentPage] = useState<number>(1)
   const [amountDecksInOnePage, setAmountDecksInOnePage] = useState(7)
+  const [valueSortTable, setValueSortTable] = useState<string | null>(null)
+  const [activeBattonTabPanel, setActiveBattonTabPanel] = useState('All Cards')
+  let myUserId = '4b29a9f4-745a-44eb-8a94-1c85c5650dbe'
 
+  if (activeBattonTabPanel === 'All Cards') {
+    myUserId = ''
+  }
   const { data } = useGetCardsQuery({
+    authorId: myUserId,
+    orderBy: valueSortTable,
     currentPage: valueCurrentPage,
     itemsPerPage: amountDecksInOnePage,
   })
+
   const setCurrentPage = (currentPage: number) => {
     setValueCurrentPage(currentPage)
   }
@@ -35,21 +44,20 @@ export const TableDecksWithSettings = () => {
   const handlerSendInputValue = (valueInput: string) => {
     alert(valueInput)
   }
-  const [active, setActive] = useState('All Cards')
 
   const handlerTabPanel1 = (name: string) => {
-    alert(`Мне показалось или вы нажали кнопку ${name}...Перепроверьте лучше!`)
-    setActive(name)
+    setActiveBattonTabPanel(name)
   }
   const handlerTabPanel2 = (name: string) => {
-    alert(`Мне показалось или вы нажали кнопку ${name}...Перепроверьте лучше!`)
-    setActive(name)
+    setActiveBattonTabPanel(name)
   }
   const dataTabPanel: itemTabType[] = [
     { id: 'tab1', name: 'My Cards', onClick: handlerTabPanel1, disabled: false },
     { id: 'tab2', name: 'All Cards', onClick: handlerTabPanel2, disabled: false },
   ]
-  const startArrayValue = [2, 10]
+
+  const startValueSlider = [0, 15]
+
   const handlerOnValueCommit = (value: number[]) => {
     alert(`Вы поставили левый ползунок на ${value[0]}  а правый на ${value[1]}`)
   }
@@ -73,7 +81,7 @@ export const TableDecksWithSettings = () => {
     },
   ]
   const sendDataToServer = (value: string) => {
-    alert('sendDataToServer...   ' + value)
+    setValueSortTable(value)
   }
 
   return (
@@ -92,12 +100,12 @@ export const TableDecksWithSettings = () => {
           showIconClose={false}
         />
         <div className={st.tabPanel}>
-          <TabPanel active={active} data={dataTabPanel} title="Show packs cards" />
+          <TabPanel active={activeBattonTabPanel} data={dataTabPanel} title="Show packs cards" />
         </div>
 
         <div className={st.slider}>
           <Typography variant={'body2'}>Number of cards</Typography>
-          <SliderBar onValueCommit={handlerOnValueCommit} startArrayValue={startArrayValue} />
+          <SliderBar onValueCommit={handlerOnValueCommit} startValueSlider={startValueSlider} />
         </div>
         <Button className={st.buttonIconDelete} variant={'secondary'}>
           <DeleteIcon />
