@@ -56,8 +56,6 @@ export const TableDecksWithSettings = () => {
     { id: 'tab2', name: 'All Cards', onClick: handlerTabPanel2, disabled: false },
   ]
 
-  const startValueSlider = [0, 15]
-
   const handlerOnValueCommit = (value: number[]) => {
     alert(`Вы поставили левый ползунок на ${value[0]}  а правый на ${value[1]}`)
   }
@@ -105,7 +103,7 @@ export const TableDecksWithSettings = () => {
 
         <div className={st.slider}>
           <Typography variant={'body2'}>Number of cards</Typography>
-          <SliderBar onValueCommit={handlerOnValueCommit} startValueSlider={startValueSlider} />
+          <SliderBar onValueCommit={handlerOnValueCommit} />
         </div>
         <Button className={st.buttonIconDelete} variant={'secondary'}>
           <DeleteIcon />
