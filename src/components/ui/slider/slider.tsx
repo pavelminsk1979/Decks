@@ -7,30 +7,34 @@ import { useGetCardsQuery } from '../../../service/decks/serveceDecks.ts'
 import st from './slider.module.scss'
 
 type PropsType = {
-  onValueCommit: (value: number[]) => void
+  valueSliderSendSever: (value: number[]) => void
 }
 
-export const SliderBar = ({ onValueCommit }: PropsType) => {
+export const SliderBar = ({ valueSliderSendSever }: PropsType) => {
   const { data } = useGetCardsQuery({})
   const [flag, setFlag] = useState(false)
-  let [startMaxValueSlider, setStartMaxValueSlider] = useState(0)
+
+  let startMaxValueSlider = 0
+
+  if (data) {
+    startMaxValueSlider = data.maxCardsCount
+  }
 
   const [value, setValue] = useState([0, 0])
 
   useEffect(() => {
-    setStartMaxValueSlider(data?.maxCardsCount || 0)
     if (!flag && data?.maxCardsCount) {
-      setValue([0, data?.maxCardsCount || 0])
+      setValue([0, data.maxCardsCount])
       setFlag(true)
     }
   }, [data])
   const handlerOnValueChange = (event: number[]) => {
     setValue([event[0], event[1]])
-  }
+  } // это перерисовывает каждое изменение в слайднре
 
   const handlerOnValueCommit = () => {
-    onValueCommit(value)
-  }
+    valueSliderSendSever(value)
+  } // когда я поуправлял ползунком и убрал от него мышку--это запускает функцию которая содержит значение
 
   return (
     <div className={st.common}>

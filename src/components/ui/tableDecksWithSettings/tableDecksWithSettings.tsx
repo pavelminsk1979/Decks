@@ -23,7 +23,13 @@ export const TableDecksWithSettings = () => {
   if (activeBattonTabPanel === 'All Cards') {
     myUserId = ''
   }
+  const [valueSlider, setValueSlider] = useState<number[] | null>(null)
+
+  console.log(valueSlider)
   const { data } = useGetCardsQuery({
+    /* minCardsCount: valueSlider[0] as number,*/
+    minCardsCount: valueSlider !== null ? valueSlider[0] : undefined,
+    maxCardsCount: valueSlider !== null ? valueSlider[1] : undefined,
     authorId: myUserId,
     orderBy: valueSortTable,
     currentPage: valueCurrentPage,
@@ -56,8 +62,9 @@ export const TableDecksWithSettings = () => {
     { id: 'tab2', name: 'All Cards', onClick: handlerTabPanel2, disabled: false },
   ]
 
-  const handlerOnValueCommit = (value: number[]) => {
-    alert(`Вы поставили левый ползунок на ${value[0]}  а правый на ${value[1]}`)
+  const valueSliderSendSever = (value: number[]) => {
+    /*alert(`Вы поставили левый ползунок на ${value[0]}  а правый на ${value[1]}`)*/
+    setValueSlider(value)
   }
 
   const dataHeadersTable = [
@@ -103,7 +110,7 @@ export const TableDecksWithSettings = () => {
 
         <div className={st.slider}>
           <Typography variant={'body2'}>Number of cards</Typography>
-          <SliderBar onValueCommit={handlerOnValueCommit} />
+          <SliderBar valueSliderSendSever={valueSliderSendSever} />
         </div>
         <Button className={st.buttonIconDelete} variant={'secondary'}>
           <DeleteIcon />
