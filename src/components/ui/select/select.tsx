@@ -13,9 +13,11 @@ type PropsType = {
   stateSelectItems: ItemType[]
   headerSelector: string
   onValueChange: (value: number) => void
+  amountDecksInOnePage: number
 }
 
 export const SelectControl = ({
+  amountDecksInOnePage,
   widthBlockSelector,
   stateSelectItems,
   headerSelector,
@@ -26,9 +28,24 @@ export const SelectControl = ({
 
     onValueChange(Number(res?.text))
   }
+  let activValie = '2'
+
+  if (amountDecksInOnePage === 5) {
+    activValie = '1'
+  }
+
+  if (amountDecksInOnePage === 10) {
+    activValie = '3'
+  }
+  if (amountDecksInOnePage === 12) {
+    activValie = '4'
+  }
+  if (amountDecksInOnePage === 15) {
+    activValie = '5'
+  }
 
   return (
-    <Select.Root onValueChange={handlerOnValueChange}>
+    <Select.Root value={activValie} onValueChange={handlerOnValueChange}>
       <Select.Trigger style={{ width: widthBlockSelector }} className={st.selectTrigger}>
         <Select.Value className={st.title} placeholder={headerSelector} />
 

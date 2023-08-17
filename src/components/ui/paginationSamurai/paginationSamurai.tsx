@@ -27,9 +27,8 @@ export const PaginationSamurai = ({
     { value: '5', text: '15' },
   ]
   let widthBlockSelector = 80
-  let headerSelector = '7'
 
-  const handlerOnValueChange = (amountElementsInOnePage = 7) => {
+  const handlerOnValueChange = (amountElementsInOnePage: number) => {
     setAmountElementsInOnePage(amountElementsInOnePage)
   }
 
@@ -71,6 +70,8 @@ export const PaginationSamurai = ({
     fetchActivePageHandler(part * sizeOnePart + 1)
   }
 
+  /*  console.log(amountDecksInOnePage)*/
+
   return (
     <div className={st.common}>
       <div className={st.arrow} onClick={onClickReturnPart}>
@@ -99,9 +100,10 @@ export const PaginationSamurai = ({
         Показать
         <SelectControl
           onValueChange={handlerOnValueChange}
-          headerSelector={headerSelector}
+          headerSelector={String(amountDecksInOnePage)}
           widthBlockSelector={widthBlockSelector}
           stateSelectItems={stateSelectItems}
+          amountDecksInOnePage={amountDecksInOnePage}
         />
         на странице
       </div>

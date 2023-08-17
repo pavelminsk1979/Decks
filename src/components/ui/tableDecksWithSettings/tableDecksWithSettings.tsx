@@ -15,7 +15,7 @@ import st from './tableDecksWithSettings.module.scss'
 
 export const TableDecksWithSettings = () => {
   const [valueCurrentPage, setValueCurrentPage] = useState<number>(1)
-  const [amountDecksInOnePage, setAmountDecksInOnePage] = useState(7)
+  const [amountDecksInOnePage, setAmountDecksInOnePage] = useState(8)
   const [valueSortTable, setValueSortTable] = useState<string | null>(null)
   const [activeBattonTabPanel, setActiveBattonTabPanel] = useState('All Cards')
   let myUserId = '4b29a9f4-745a-44eb-8a94-1c85c5650dbe'
@@ -35,6 +35,14 @@ export const TableDecksWithSettings = () => {
     currentPage: valueCurrentPage,
     itemsPerPage: amountDecksInOnePage,
   })
+  const handlerBattonClearFilter = () => {
+    setValueCurrentPage(1)
+    setAmountDecksInOnePage(8)
+    setValueSortTable(null)
+    setActiveBattonTabPanel('All Cards')
+    setValueTextField('')
+    setValueInput('')
+  }
 
   let startMaxValueSlider = 0
 
@@ -119,7 +127,11 @@ export const TableDecksWithSettings = () => {
             valueSliderSendSever={valueSliderSendSever}
           />
         </div>
-        <Button className={st.buttonIconDelete} variant={'secondary'}>
+        <Button
+          onClick={handlerBattonClearFilter}
+          className={st.buttonIconDelete}
+          variant={'secondary'}
+        >
           <DeleteIcon />
           Clear Filter
         </Button>
