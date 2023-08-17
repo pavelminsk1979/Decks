@@ -35,6 +35,7 @@ export const TableDecksWithSettings = () => {
     currentPage: valueCurrentPage,
     itemsPerPage: amountDecksInOnePage,
   })
+
   const handlerBattonClearFilter = () => {
     setValueCurrentPage(1)
     setAmountDecksInOnePage(8)
@@ -42,6 +43,7 @@ export const TableDecksWithSettings = () => {
     setActiveBattonTabPanel('All Cards')
     setValueTextField('')
     setValueInput('')
+    setValueSlider(null)
   }
 
   let startMaxValueSlider = 0
