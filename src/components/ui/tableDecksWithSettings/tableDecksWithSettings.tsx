@@ -24,10 +24,10 @@ export const TableDecksWithSettings = () => {
     myUserId = ''
   }
   const [valueSlider, setValueSlider] = useState<number[] | null>(null)
+  const [valueTextField, setValueTextField] = useState('')
 
-  console.log(valueSlider)
   const { data } = useGetCardsQuery({
-    /* minCardsCount: valueSlider[0] as number,*/
+    name: valueTextField,
     minCardsCount: valueSlider !== null ? valueSlider[0] : undefined,
     maxCardsCount: valueSlider !== null ? valueSlider[1] : undefined,
     authorId: myUserId,
@@ -36,6 +36,14 @@ export const TableDecksWithSettings = () => {
     itemsPerPage: amountDecksInOnePage,
   })
 
+  let startMaxValueSlider = 0
+
+  if (data) {
+    startMaxValueSlider = data.maxCardsCount
+  }
+  const valueSliderSendSever = (value: number[]) => {
+    setValueSlider(value)
+  }
   const setCurrentPage = (currentPage: number) => {
     setValueCurrentPage(currentPage)
   }
@@ -48,7 +56,7 @@ export const TableDecksWithSettings = () => {
   const [valueInput, setValueInput] = useState('')
 
   const handlerSendInputValue = (valueInput: string) => {
-    alert(valueInput)
+    setValueTextField(valueInput)
   }
 
   const handlerTabPanel1 = (name: string) => {
@@ -61,11 +69,6 @@ export const TableDecksWithSettings = () => {
     { id: 'tab1', name: 'My Cards', onClick: handlerTabPanel1, disabled: false },
     { id: 'tab2', name: 'All Cards', onClick: handlerTabPanel2, disabled: false },
   ]
-
-  const valueSliderSendSever = (value: number[]) => {
-    /*alert(`Вы поставили левый ползунок на ${value[0]}  а правый на ${value[1]}`)*/
-    setValueSlider(value)
-  }
 
   const dataHeadersTable = [
     {
@@ -103,6 +106,7 @@ export const TableDecksWithSettings = () => {
           placeholder={'Input search'}
           type="text"
           showIconClose={false}
+          label={'Write a symbol and  press еnter'}
         />
         <div className={st.tabPanel}>
           <TabPanel active={activeBattonTabPanel} data={dataTabPanel} title="Show packs cards" />
@@ -110,7 +114,10 @@ export const TableDecksWithSettings = () => {
 
         <div className={st.slider}>
           <Typography variant={'body2'}>Number of cards</Typography>
-          <SliderBar valueSliderSendSever={valueSliderSendSever} />
+          <SliderBar
+            startMaxValueSlider={startMaxValueSlider}
+            valueSliderSendSever={valueSliderSendSever}
+          />
         </div>
         <Button className={st.buttonIconDelete} variant={'secondary'}>
           <DeleteIcon />
