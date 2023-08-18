@@ -5,9 +5,10 @@ import { Header } from './components/ui'
 import { useGetCardsQuery } from './service/decks/serveceDecks.ts'
 
 export function App() {
-  const { isLoading } = useGetCardsQuery()
+  const { isLoading } = useGetCardsQuery({})
   const navigate = useNavigate()
 
+  console.log(isLoading)
   const isLoggedIn = false
 
   const handlerOnClick = () => {

@@ -7,9 +7,14 @@ import st from './slider.module.scss'
 type PropsType = {
   valueSliderSendSever: (value: number[]) => void
   startMaxValueSlider: number
+  processResetAndValueSliderNull: null | number[]
 }
 
-export const SliderBar = ({ valueSliderSendSever, startMaxValueSlider }: PropsType) => {
+export const SliderBar = ({
+  valueSliderSendSever,
+  startMaxValueSlider,
+  processResetAndValueSliderNull,
+}: PropsType) => {
   const [flag, setFlag] = useState(false)
 
   const [value, setValue] = useState([0, 0])
@@ -20,6 +25,12 @@ export const SliderBar = ({ valueSliderSendSever, startMaxValueSlider }: PropsTy
       setFlag(true)
     }
   }, [startMaxValueSlider])
+
+  useEffect(() => {
+    if (processResetAndValueSliderNull === null) {
+      setValue([0, startMaxValueSlider])
+    }
+  }, [processResetAndValueSliderNull])
   const handlerOnValueChange = (event: number[]) => {
     setValue([event[0], event[1]])
   } // это перерисовывает каждое изменение в слайднре

@@ -80,24 +80,6 @@ export const TableDecksWithSettings = () => {
     { id: 'tab2', name: 'All Cards', onClick: handlerTabPanel2, disabled: false },
   ]
 
-  const dataHeadersTable = [
-    {
-      key: 'name',
-      title: 'Name',
-    },
-    {
-      key: 'cardsCount',
-      title: 'Cards',
-    },
-    {
-      key: 'updated',
-      title: 'Last Updated',
-    },
-    {
-      key: 'createdBy',
-      title: 'Created by',
-    },
-  ]
   const sendDataToServer = (value: string) => {
     setValueSortTable(value)
   }
@@ -127,6 +109,7 @@ export const TableDecksWithSettings = () => {
           <SliderBar
             startMaxValueSlider={startMaxValueSlider}
             valueSliderSendSever={valueSliderSendSever}
+            processResetAndValueSliderNull={valueSlider}
           />
         </div>
         <Button
@@ -138,11 +121,7 @@ export const TableDecksWithSettings = () => {
           Clear Filter
         </Button>
       </div>
-      <TableDecks
-        decksItems={decksItems}
-        dataHeadersTable={dataHeadersTable}
-        sendDataToServer={sendDataToServer}
-      />
+      <TableDecks decksItems={decksItems} sendDataToServer={sendDataToServer} />
       <div className={st.pagination}>
         <PaginationSamurai
           amountDecksInOnePage={amountDecksInOnePage}

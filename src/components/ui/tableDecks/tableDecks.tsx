@@ -5,24 +5,20 @@ import { ArrowUpIcon } from '../../../assets/icons/arrowUpIcon.tsx'
 import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
 import { EditIcon } from '../../../assets/icons/editIcon.tsx'
 import { PlayIcon } from '../../../assets/icons/playIcon.tsx'
+import { DATA_HEADERS_TABLE } from '../../../common/constants.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
 
 import st from './tableDecks.module.scss'
 
-type DataHeaderType = {
-  key: string
-  title: string
-}
 type PropsType = {
   decksItems: DecksItemsType[] | undefined
-  dataHeadersTable: DataHeaderType[]
   sendDataToServer: (value: string) => void
 }
 type SortType = {
   key: string
   direction: 'asc' | 'desc'
 } | null
-export const TableDecks = ({ decksItems, dataHeadersTable, sendDataToServer }: PropsType) => {
+export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
   const [sort, setSort] = useState<SortType>(null)
   const handlerSort = (key: string) => {
     if (key !== 'action') {
@@ -50,7 +46,7 @@ export const TableDecks = ({ decksItems, dataHeadersTable, sendDataToServer }: P
     <table className={st.table}>
       <thead>
         <tr className={st.header}>
-          {dataHeadersTable.map(el => (
+          {DATA_HEADERS_TABLE.map(el => (
             <th key={el.key} className={st.thHeader} onClick={() => handlerSort(el.key)}>
               {el.title}
               {sort === null && <ArrowUpIcon />}
