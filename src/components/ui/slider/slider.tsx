@@ -15,22 +15,13 @@ export const SliderBar = ({
   startMaxValueSlider,
   processResetAndValueSliderNull,
 }: PropsType) => {
-  const [flag, setFlag] = useState(false)
-
   const [value, setValue] = useState([0, 0])
-
-  useEffect(() => {
-    if (!flag && startMaxValueSlider) {
-      setValue([0, startMaxValueSlider])
-      setFlag(true)
-    }
-  }, [startMaxValueSlider])
 
   useEffect(() => {
     if (processResetAndValueSliderNull === null) {
       setValue([0, startMaxValueSlider])
     }
-  }, [processResetAndValueSliderNull])
+  }, [processResetAndValueSliderNull, startMaxValueSlider])
   const handlerOnValueChange = (event: number[]) => {
     setValue([event[0], event[1]])
   } // это перерисовывает каждое изменение в слайднре
