@@ -9,7 +9,7 @@ import { Button } from '../button'
 import { PaginationSamurai } from '../paginationSamurai'
 import { SliderBar } from '../slider'
 import { TableDecks } from '../tableDecks'
-import { itemTabType, TabPanel } from '../tabPanel'
+import { TabPanel } from '../tabPanel'
 import { TextField } from '../textField'
 import { Typography } from '../typography'
 
@@ -47,6 +47,21 @@ export const TableDecksWithSettings = () => {
     setValueTextField('')
     setValueInput('')
     setValueSlider(null)
+    let minValue = 0
+    let maxValue = 0
+    let currentPage = 0
+    let amountElementsInOnePage = 0
+    let valueInput = ''
+    let name = ''
+    let value = ''
+
+    dispatch(decksActions.setMinCardsCount({ minValue }))
+    dispatch(decksActions.setMaxCardsCount({ maxValue }))
+    dispatch(decksActions.setCurrentPage({ currentPage }))
+    dispatch(decksActions.setItemsPerPage({ amountElementsInOnePage }))
+    dispatch(decksActions.setName({ valueInput }))
+    dispatch(decksActions.setAuthorId({ name }))
+    dispatch(decksActions.setOrderBy({ value }))
   }
 
   let startMaxValueSlider = 0
@@ -56,12 +71,19 @@ export const TableDecksWithSettings = () => {
   }
   const valueSliderSendSever = (value: number[]) => {
     setValueSlider(value)
+    let minValue = value[0]
+    let maxValue = value[1]
+
+    dispatch(decksActions.setMinCardsCount({ minValue }))
+    dispatch(decksActions.setMaxCardsCount({ maxValue }))
   }
   const setCurrentPage = (currentPage: number) => {
     setValueCurrentPage(currentPage)
+    dispatch(decksActions.setCurrentPage({ currentPage }))
   }
   const setAmountElementsInOnePage = (amountElementsInOnePage: number) => {
     setAmountDecksInOnePage(amountElementsInOnePage)
+    dispatch(decksActions.setItemsPerPage({ amountElementsInOnePage }))
   }
 
   const decksItems: DecksItemsType[] | undefined = data?.items
@@ -70,20 +92,17 @@ export const TableDecksWithSettings = () => {
 
   const handlerSendInputValue = (valueInput: string) => {
     setValueTextField(valueInput)
+    dispatch(decksActions.setName({ valueInput }))
   }
 
-  const handlerOnClick = (name: string) => {
+  const handlerTabPanelOnClick = (name: string) => {
     setActiveBattonTabPanel(name)
     dispatch(decksActions.setAuthorId({ name }))
   }
 
-  const dataTabPanel: itemTabType[] = [
-    { id: 'tab1', name: 'My Cards' },
-    { id: 'tab2', name: 'All Cards' },
-  ]
-
   const sendDataToServer = (value: string) => {
     setValueSortTable(value)
+    dispatch(decksActions.setOrderBy({ value }))
   }
 
   return (
@@ -105,9 +124,8 @@ export const TableDecksWithSettings = () => {
         <div className={st.tabPanel}>
           <TabPanel
             active={activeBattonTabPanel}
-            data={dataTabPanel}
             title="Show packs cards"
-            handlerOnClick={handlerOnClick}
+            handlerOnClick={handlerTabPanelOnClick}
           />
         </div>
 

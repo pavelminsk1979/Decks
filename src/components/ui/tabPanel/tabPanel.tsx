@@ -1,28 +1,23 @@
 import * as Tabs from '@radix-ui/react-tabs'
 
+import { DATA_TAB_PANEL } from '../../../common/constants.ts'
 import { Typography } from '../typography'
 
 import st from './tabPanel.module.scss'
 
-export type itemTabType = {
-  id: string
-  name: string
-}
-
 type PropsType = {
-  data: itemTabType[]
   active: string
   title: string
   handlerOnClick: (name: string) => void
 }
 
-export const TabPanel = ({ data, active, title, handlerOnClick }: PropsType) => {
+export const TabPanel = ({ active, title, handlerOnClick }: PropsType) => {
   return (
     <Tabs.Root className={st.common}>
       <Typography variant={'body2'}>{title}</Typography>
 
       <Tabs.List>
-        {data.map((e: itemTabType) => {
+        {DATA_TAB_PANEL.map(e => {
           return (
             <Tabs.Trigger
               onClick={() => handlerOnClick(e.name)}

@@ -1,3 +1,7 @@
+type DataHeaderType = {
+  key: string
+  title: string
+}
 export const DATA_HEADERS_TABLE: DataHeaderType[] = [
   {
     key: 'name',
@@ -16,7 +20,13 @@ export const DATA_HEADERS_TABLE: DataHeaderType[] = [
     title: 'Created by',
   },
 ]
-type DataHeaderType = {
-  key: string
-  title: string
+
+type ItemTabType = {
+  id: string
+  name: string
 }
+
+export const DATA_TAB_PANEL: ItemTabType[] = [
+  { id: 'tab1', name: 'My Cards' },
+  { id: 'tab2', name: 'All Cards' },
+]

@@ -16,14 +16,14 @@ const slice = createSlice({
   name: 'decks',
   initialState: initialStateDecks,
   reducers: {
-    setMinCardsCount(state, action: PayloadAction<{ value: number }>) {
-      state.minCardsCount = action.payload.value
+    setMinCardsCount(state, action: PayloadAction<{ minValue: number }>) {
+      state.minCardsCount = action.payload.minValue
     },
-    setMaxCardsCount(state, action: PayloadAction<{ value: number }>) {
-      state.maxCardsCount = action.payload.value
+    setMaxCardsCount(state, action: PayloadAction<{ maxValue: number }>) {
+      state.maxCardsCount = action.payload.maxValue
     },
-    setName(state, action: PayloadAction<{ value: string }>) {
-      state.name = action.payload.value
+    setName(state, action: PayloadAction<{ valueInput: string }>) {
+      state.name = action.payload.valueInput
     },
     setAuthorId(state, action: PayloadAction<{ name: string }>) {
       state.authorId = action.payload.name
@@ -31,11 +31,11 @@ const slice = createSlice({
     setOrderBy(state, action: PayloadAction<{ value: string }>) {
       state.orderBy = action.payload.value
     },
-    setCurrentPage(state, action: PayloadAction<{ value: number }>) {
-      state.currentPage = action.payload.value
+    setCurrentPage(state, action: PayloadAction<{ currentPage: number }>) {
+      state.currentPage = action.payload.currentPage
     },
-    setItemsPerPage(state, action: PayloadAction<{ value: number }>) {
-      state.itemsPerPage = action.payload.value
+    setItemsPerPage(state, action: PayloadAction<{ amountElementsInOnePage: number }>) {
+      state.itemsPerPage = action.payload.amountElementsInOnePage
     },
   },
 })
