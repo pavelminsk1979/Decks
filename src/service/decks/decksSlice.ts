@@ -26,7 +26,6 @@ const slice = createSlice({
       state.name = action.payload.value
     },
     setAuthorId(state, action: PayloadAction<{ name: string }>) {
-      debugger
       state.authorId = action.payload.name
     },
     setOrderBy(state, action: PayloadAction<{ value: string }>) {

@@ -7,17 +7,16 @@ import st from './tabPanel.module.scss'
 export type itemTabType = {
   id: string
   name: string
-  onClick: (name: string) => void
-  disabled: boolean
 }
 
 type PropsType = {
   data: itemTabType[]
   active: string
   title: string
+  handlerOnClick: (name: string) => void
 }
 
-export const TabPanel = ({ data, active, title }: PropsType) => {
+export const TabPanel = ({ data, active, title, handlerOnClick }: PropsType) => {
   return (
     <Tabs.Root className={st.common}>
       <Typography variant={'body2'}>{title}</Typography>
@@ -26,8 +25,7 @@ export const TabPanel = ({ data, active, title }: PropsType) => {
         {data.map((e: itemTabType) => {
           return (
             <Tabs.Trigger
-              disabled={e.disabled}
-              onClick={() => e.onClick(e.name)}
+              onClick={() => handlerOnClick(e.name)}
               key={e.id}
               className={active === e.name ? st.active : st.tabTrigger}
               value={e.id}

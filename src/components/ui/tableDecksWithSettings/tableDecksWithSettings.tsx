@@ -72,16 +72,14 @@ export const TableDecksWithSettings = () => {
     setValueTextField(valueInput)
   }
 
-  const handlerTabPanel1 = (name: string) => {
+  const handlerOnClick = (name: string) => {
     setActiveBattonTabPanel(name)
     dispatch(decksActions.setAuthorId({ name }))
   }
-  const handlerTabPanel2 = (name: string) => {
-    setActiveBattonTabPanel(name)
-  }
+
   const dataTabPanel: itemTabType[] = [
-    { id: 'tab1', name: 'My Cards', onClick: handlerTabPanel1, disabled: false },
-    { id: 'tab2', name: 'All Cards', onClick: handlerTabPanel2, disabled: false },
+    { id: 'tab1', name: 'My Cards' },
+    { id: 'tab2', name: 'All Cards' },
   ]
 
   const sendDataToServer = (value: string) => {
@@ -105,7 +103,12 @@ export const TableDecksWithSettings = () => {
           label={'Write a symbol and  press еnter'}
         />
         <div className={st.tabPanel}>
-          <TabPanel active={activeBattonTabPanel} data={dataTabPanel} title="Show packs cards" />
+          <TabPanel
+            active={activeBattonTabPanel}
+            data={dataTabPanel}
+            title="Show packs cards"
+            handlerOnClick={handlerOnClick}
+          />
         </div>
 
         <div className={st.slider}>
