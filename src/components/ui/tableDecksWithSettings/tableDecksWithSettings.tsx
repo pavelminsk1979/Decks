@@ -21,13 +21,15 @@ export const TableDecksWithSettings = () => {
   const [amountDecksInOnePage, setAmountDecksInOnePage] = useState(8)
   const [valueSortTable, setValueSortTable] = useState<string | null>(null)
   const [activeBattonTabPanel, setActiveBattonTabPanel] = useState('All Cards')
+  const [valueSlider, setValueSlider] = useState<number[] | null>(null)
+  const [valueTextField, setValueTextField] = useState('')
+  const [valueInput, setValueInput] = useState('')
+
   let myUserId = '4b29a9f4-745a-44eb-8a94-1c85c5650dbe'
 
   if (activeBattonTabPanel === 'All Cards') {
     myUserId = ''
   }
-  const [valueSlider, setValueSlider] = useState<number[] | null>(null)
-  const [valueTextField, setValueTextField] = useState('')
 
   const { data } = useGetCardsQuery({
     name: valueTextField,
@@ -38,7 +40,13 @@ export const TableDecksWithSettings = () => {
     currentPage: valueCurrentPage,
     itemsPerPage: amountDecksInOnePage,
   })
+  const decksItems: DecksItemsType[] | undefined = data?.items
 
+  let startMaxValueSlider = 0
+
+  if (data) {
+    startMaxValueSlider = data.maxCardsCount
+  }
   const handlerBattonClearFilter = () => {
     setValueCurrentPage(1)
     setAmountDecksInOnePage(8)
@@ -64,11 +72,6 @@ export const TableDecksWithSettings = () => {
     dispatch(decksActions.setOrderBy({ value }))
   }
 
-  let startMaxValueSlider = 0
-
-  if (data) {
-    startMaxValueSlider = data.maxCardsCount
-  }
   const valueSliderSendSever = (value: number[]) => {
     setValueSlider(value)
     let minValue = value[0]
@@ -85,10 +88,6 @@ export const TableDecksWithSettings = () => {
     setAmountDecksInOnePage(amountElementsInOnePage)
     dispatch(decksActions.setItemsPerPage({ amountElementsInOnePage }))
   }
-
-  const decksItems: DecksItemsType[] | undefined = data?.items
-
-  const [valueInput, setValueInput] = useState('')
 
   const handlerSendInputValue = (valueInput: string) => {
     setValueTextField(valueInput)
