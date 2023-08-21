@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
 import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
+import { decksActions } from '../../../service/decks/decksSlice.ts'
 import { useGetCardsQuery } from '../../../service/decks/serveceDecks.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
 import { Button } from '../button'
@@ -14,6 +16,7 @@ import { Typography } from '../typography'
 import st from './tableDecksWithSettings.module.scss'
 
 export const TableDecksWithSettings = () => {
+  const dispatch = useAppDispatch()
   const [valueCurrentPage, setValueCurrentPage] = useState<number>(1)
   const [amountDecksInOnePage, setAmountDecksInOnePage] = useState(8)
   const [valueSortTable, setValueSortTable] = useState<string | null>(null)
@@ -71,6 +74,7 @@ export const TableDecksWithSettings = () => {
 
   const handlerTabPanel1 = (name: string) => {
     setActiveBattonTabPanel(name)
+    dispatch(decksActions.setAuthorId({ name }))
   }
   const handlerTabPanel2 = (name: string) => {
     setActiveBattonTabPanel(name)
