@@ -17,6 +17,7 @@ export const Modal = ({ titleButton, children }: PropsType) => (
       <Button variant={'primary'}>{titleButton}</Button>
     </Dialog.Trigger>
     <Dialog.Portal>
+      <Dialog.Overlay className={st.DialogOverlay} />
       <Dialog.Content className={st.DialogContent}>
         <Dialog.Title className={st.DialogTitle}>Заголовок</Dialog.Title>
         <Dialog.Description className={st.DialogDescription}>Какойто текст</Dialog.Description>

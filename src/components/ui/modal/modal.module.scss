@@ -2,6 +2,13 @@ button {
   all: unset;
 }
 
+.DialogOverlay {
+  background-color: #060606;
+  opacity: 0.6;
+  position: fixed;
+  inset: 0;
+}
+
 .DialogContent {
   position: fixed;
   top: 50%;
