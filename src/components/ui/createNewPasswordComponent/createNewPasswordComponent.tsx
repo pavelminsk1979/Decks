@@ -21,7 +21,6 @@ export const CreateNewPasswordComponent = () => {
   })
   const handlerOnSubmit = (data: any) => {
     alert('Куда должно отправлятся--надо будет узнавать' + data.password)
-    console.log(data)
   }
 
   return (

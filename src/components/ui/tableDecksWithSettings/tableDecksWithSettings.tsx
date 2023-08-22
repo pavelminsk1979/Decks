@@ -6,6 +6,7 @@ import { decksActions } from '../../../service/decks/decksSlice.ts'
 import { useGetCardsQuery } from '../../../service/decks/serveceDecks.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
 import { Button } from '../button'
+import { Modal } from '../modal'
 import { PaginationSamurai } from '../paginationSamurai'
 import { SliderBar } from '../slider'
 import { TableDecks } from '../tableDecks'
@@ -108,7 +109,11 @@ export const TableDecksWithSettings = () => {
     <div className={st.common}>
       <div className={st.blockTitleButton}>
         <Typography variant={'large'}>Packs list</Typography>
-        <Button variant={'primary'}>Add New Pack</Button>
+        <Modal titleButton={'Add New Pack'}>
+          <Button variant={'primary'}>11111</Button>
+          <Button variant={'primary'}>22211</Button>
+          <Button variant={'primary'}>133331</Button>
+        </Modal>
       </div>
       <div className={st.blockSettings}>
         <TextField

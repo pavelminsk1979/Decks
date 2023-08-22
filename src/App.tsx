@@ -8,7 +8,6 @@ export function App() {
   const { isLoading } = useGetCardsQuery({})
   const navigate = useNavigate()
 
-  console.log(isLoading)
   const isLoggedIn = false
 
   const handlerOnClick = () => {
