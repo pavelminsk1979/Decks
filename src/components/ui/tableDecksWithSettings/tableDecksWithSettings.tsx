@@ -104,15 +104,31 @@ export const TableDecksWithSettings = () => {
     setValueSortTable(value)
     dispatch(decksActions.setOrderBy({ value }))
   }
+  const handlerOnClickModal = () => {
+    alert(valueInput)
+    setValueInput('')
+  }
 
   return (
     <div className={st.common}>
       <div className={st.blockTitleButton}>
         <Typography variant={'large'}>Packs list</Typography>
-        <Modal titleButton={'Add New Pack'}>
-          <Button variant={'primary'}>11111</Button>
-          <Button variant={'primary'}>22211</Button>
-          <Button variant={'primary'}>133331</Button>
+        <Modal
+          titleButtonOpenModal={'Add New Deck'}
+          sizeWidthModal={'540px'}
+          sizeHeightModal={'290px'}
+          titleModal={'Add New Deck'}
+          titleButtonExecutor={'Add New Deck'}
+          handlerOnClick={handlerOnClickModal}
+        >
+          <TextField
+            sizeWidthTextField="480px"
+            valueInput={valueInput}
+            setValueInput={setValueInput}
+            placeholder={'Name'}
+            label={'Name Deck'}
+            type="email"
+          />
         </Modal>
       </div>
       <div className={st.blockSettings}>
