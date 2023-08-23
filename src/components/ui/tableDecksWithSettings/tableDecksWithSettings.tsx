@@ -16,30 +16,41 @@ import { Typography } from '../typography'
 
 import st from './tableDecksWithSettings.module.scss'
 
+type MainStateType = {
+  valueCurrentPage: number
+  amountDecksInOnePage: number
+  valueSortTable: null | string
+  activeBattonTabPanel: string
+  valueSlider: null | number[]
+  valueTextField: string
+  valueInput: string
+}
 export const TableDecksWithSettings = () => {
   const dispatch = useAppDispatch()
-  const [valueCurrentPage, setValueCurrentPage] = useState<number>(1)
-  const [amountDecksInOnePage, setAmountDecksInOnePage] = useState(8)
-  const [valueSortTable, setValueSortTable] = useState<string | null>(null)
-  const [activeBattonTabPanel, setActiveBattonTabPanel] = useState('All Cards')
-  const [valueSlider, setValueSlider] = useState<number[] | null>(null)
-  const [valueTextField, setValueTextField] = useState('')
-  const [valueInput, setValueInput] = useState('')
+  const [mainState, setMainState] = useState<MainStateType>({
+    valueCurrentPage: 1,
+    amountDecksInOnePage: 8,
+    valueSortTable: null,
+    activeBattonTabPanel: 'All Cards',
+    valueSlider: null,
+    valueTextField: '',
+    valueInput: '',
+  })
 
   let myUserId = '4b29a9f4-745a-44eb-8a94-1c85c5650dbe'
 
-  if (activeBattonTabPanel === 'All Cards') {
+  if (mainState.activeBattonTabPanel === 'All Cards') {
     myUserId = ''
   }
 
   const { data } = useGetCardsQuery({
-    name: valueTextField,
-    minCardsCount: valueSlider !== null ? valueSlider[0] : undefined,
-    maxCardsCount: valueSlider !== null ? valueSlider[1] : undefined,
+    name: mainState.valueTextField,
+    minCardsCount: mainState.valueSlider !== null ? mainState.valueSlider[0] : undefined,
+    maxCardsCount: mainState.valueSlider !== null ? mainState.valueSlider[1] : undefined,
     authorId: myUserId,
-    orderBy: valueSortTable,
-    currentPage: valueCurrentPage,
-    itemsPerPage: amountDecksInOnePage,
+    orderBy: mainState.valueSortTable,
+    currentPage: mainState.valueCurrentPage,
+    itemsPerPage: mainState.amountDecksInOnePage,
   })
   const decksItems: DecksItemsType[] | undefined = data?.items
 
@@ -49,13 +60,17 @@ export const TableDecksWithSettings = () => {
     startMaxValueSlider = data.maxCardsCount
   }
   const handlerBattonClearFilter = () => {
-    setValueCurrentPage(1)
-    setAmountDecksInOnePage(8)
-    setValueSortTable(null)
-    setActiveBattonTabPanel('All Cards')
-    setValueTextField('')
-    setValueInput('')
-    setValueSlider(null)
+    setMainState({
+      ...mainState,
+      valueCurrentPage: 1,
+      amountDecksInOnePage: 8,
+      valueSortTable: null,
+      activeBattonTabPanel: 'All Cards',
+      valueSlider: null,
+      valueTextField: '',
+      valueInput: '',
+    })
+
     let minValue = 0
     let maxValue = 0
     let currentPage = 0
@@ -74,7 +89,7 @@ export const TableDecksWithSettings = () => {
   }
 
   const valueSliderSendSever = (value: number[]) => {
-    setValueSlider(value)
+    setMainState({ ...mainState, valueSlider: value })
     let minValue = value[0]
     let maxValue = value[1]
 
@@ -82,31 +97,34 @@ export const TableDecksWithSettings = () => {
     dispatch(decksActions.setMaxCardsCount({ maxValue }))
   }
   const setCurrentPage = (currentPage: number) => {
-    setValueCurrentPage(currentPage)
+    setMainState({ ...mainState, valueCurrentPage: currentPage })
     dispatch(decksActions.setCurrentPage({ currentPage }))
   }
   const setAmountElementsInOnePage = (amountElementsInOnePage: number) => {
-    setAmountDecksInOnePage(amountElementsInOnePage)
+    setMainState({ ...mainState, amountDecksInOnePage: amountElementsInOnePage })
     dispatch(decksActions.setItemsPerPage({ amountElementsInOnePage }))
   }
 
   const handlerSendInputValue = (valueInput: string) => {
-    setValueTextField(valueInput)
+    setMainState({ ...mainState, valueTextField: valueInput })
     dispatch(decksActions.setName({ valueInput }))
   }
 
   const handlerTabPanelOnClick = (name: string) => {
-    setActiveBattonTabPanel(name)
+    setMainState({ ...mainState, activeBattonTabPanel: name })
     dispatch(decksActions.setAuthorId({ name }))
   }
 
   const sendDataToServer = (value: string) => {
-    setValueSortTable(value)
+    setMainState({ ...mainState, valueSortTable: value })
     dispatch(decksActions.setOrderBy({ value }))
   }
   const handlerOnClickModal = () => {
-    alert(valueInput)
-    setValueInput('')
+    alert(mainState.valueInput)
+    setMainState({ ...mainState, valueInput: '' })
+  }
+  const handlersetValueInput = (valueInput: string) => {
+    setMainState({ ...mainState, valueInput: valueInput })
   }
 
   return (
@@ -123,8 +141,8 @@ export const TableDecksWithSettings = () => {
         >
           <TextField
             sizeWidthTextField="480px"
-            valueInput={valueInput}
-            setValueInput={setValueInput}
+            valueInput={mainState.valueInput}
+            setValueInput={handlersetValueInput}
             placeholder={'Name'}
             label={'Name Deck'}
             type="email"
@@ -134,8 +152,8 @@ export const TableDecksWithSettings = () => {
       <div className={st.blockSettings}>
         <TextField
           handlerOnChange={handlerSendInputValue}
-          valueInput={valueInput}
-          setValueInput={setValueInput}
+          valueInput={mainState.valueInput}
+          setValueInput={handlersetValueInput}
           placeholder={'Input search'}
           type="text"
           showIconClose={false}
@@ -143,7 +161,7 @@ export const TableDecksWithSettings = () => {
         />
         <div className={st.tabPanel}>
           <TabPanel
-            active={activeBattonTabPanel}
+            active={mainState.activeBattonTabPanel}
             title="Show packs cards"
             handlerOnClick={handlerTabPanelOnClick}
           />
@@ -154,7 +172,7 @@ export const TableDecksWithSettings = () => {
           <SliderBar
             startMaxValueSlider={startMaxValueSlider}
             valueSliderSendSever={valueSliderSendSever}
-            processResetAndValueSliderNull={valueSlider}
+            processResetAndValueSliderNull={mainState.valueSlider}
           />
         </div>
         <Button
@@ -169,9 +187,9 @@ export const TableDecksWithSettings = () => {
       <TableDecks decksItems={decksItems} sendDataToServer={sendDataToServer} />
       <div className={st.pagination}>
         <PaginationSamurai
-          amountDecksInOnePage={amountDecksInOnePage}
+          amountDecksInOnePage={mainState.amountDecksInOnePage}
           setAmountElementsInOnePage={setAmountElementsInOnePage}
-          valueCurrentPage={valueCurrentPage}
+          valueCurrentPage={mainState.valueCurrentPage}
           setCurrentPage={setCurrentPage}
           allElements={data?.pagination.totalItems}
         />
