@@ -16,6 +16,7 @@ type PropsType = {
   sizeHeightModal?: string
   titleButtonExecutor: string
   handlerOnClick: () => void
+  handlerCloseModal: () => void
 }
 export const Modal = ({
   titleButtonOpenModal,
@@ -25,6 +26,7 @@ export const Modal = ({
   titleModal,
   titleButtonExecutor,
   handlerOnClick,
+  handlerCloseModal,
 }: PropsType) => (
   <Dialog.Root>
     <Dialog.Trigger asChild>
@@ -33,6 +35,7 @@ export const Modal = ({
     <Dialog.Portal>
       <Dialog.Overlay className={st.DialogOverlay} />
       <Dialog.Content
+        onInteractOutside={handlerCloseModal}
         className={st.DialogContent}
         style={{ width: sizeWidthModal, height: sizeHeightModal }}
       >
@@ -40,7 +43,7 @@ export const Modal = ({
           <Typography variant={'h2'}>{titleModal}</Typography>
         </Dialog.Title>
         <Dialog.Close>
-          <button className={st.IconButton}>
+          <button className={st.IconButton} onClick={handlerCloseModal}>
             <IconClose width="28" height="28" />
           </button>
         </Dialog.Close>

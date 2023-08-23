@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
 import { decksActions } from '../../../service/decks/decksSlice.ts'
-import { useGetCardsQuery } from '../../../service/decks/serveceDecks.ts'
+import { useCreateDeckMutation, useGetCardsQuery } from '../../../service/decks/serveceDecks.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
 import { Button } from '../button'
 import { Modal } from '../modal'
@@ -37,7 +37,7 @@ export const TableDecksWithSettings = () => {
     valueInput: '',
   })
 
-  let myUserId = '4b29a9f4-745a-44eb-8a94-1c85c5650dbe'
+  let myUserId = 'f2be95b9-4d07-4751-a775-bd612fc9553a'
 
   if (mainState.activeBattonTabPanel === 'All Cards') {
     myUserId = ''
@@ -52,6 +52,7 @@ export const TableDecksWithSettings = () => {
     currentPage: mainState.valueCurrentPage,
     itemsPerPage: mainState.amountDecksInOnePage,
   })
+  const [createDeck] = useCreateDeckMutation()
   const decksItems: DecksItemsType[] | undefined = data?.items
 
   let startMaxValueSlider = 0
@@ -120,7 +121,10 @@ export const TableDecksWithSettings = () => {
     dispatch(decksActions.setOrderBy({ value }))
   }
   const handlerOnClickModal = () => {
-    alert(mainState.valueInput)
+    createDeck({ name: mainState.valueInput })
+    setMainState({ ...mainState, valueInput: '' })
+  }
+  const handlerCloseModal = () => {
     setMainState({ ...mainState, valueInput: '' })
   }
   const handlersetValueInput = (valueInput: string) => {
@@ -138,6 +142,7 @@ export const TableDecksWithSettings = () => {
           titleModal={'Add New Deck'}
           titleButtonExecutor={'Add New Deck'}
           handlerOnClick={handlerOnClickModal}
+          handlerCloseModal={handlerCloseModal}
         >
           <TextField
             sizeWidthTextField="480px"

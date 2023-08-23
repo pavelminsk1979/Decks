@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { ArgsGetDecksResponseType, DecksType } from './typeDecks.ts'
+import { ArgsGetDecksResponseType, DecksItemsType, DecksType } from './typeDecks.ts'
 
 export const decksApi = createApi({
   reducerPath: 'decksApi',
+  tagTypes: ['Decks'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://api.flashcards.andrii.es/',
     credentials: 'include',
@@ -21,9 +22,20 @@ export const decksApi = createApi({
             params: args,
           }
         },
+        providesTags: ['Decks'],
+      }),
+      createDeck: build.mutation<DecksItemsType, { name: string }>({
+        query: ({ name }) => {
+          return {
+            url: '/v1/decks',
+            method: 'POST',
+            body: { name },
+          }
+        },
+        invalidatesTags: ['Decks'],
       }),
     }
   },
 })
 
-export const { useGetCardsQuery } = decksApi
+export const { useGetCardsQuery, useCreateDeckMutation } = decksApi
