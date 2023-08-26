@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { IncubatorIcon } from '../../../assets/icons/iconIncubator.tsx'
@@ -6,6 +7,7 @@ import { IconMyProfile } from '../../../assets/icons/iconMyProfile.tsx'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
 import { authActions } from '../../../service/auth/authSlice.ts'
 import { useLogoutMutation } from '../../../service/auth/serverceAuth.ts'
+import { RootState } from '../../../service/store.ts'
 import { Button } from '../button'
 import { DropDownComponent } from '../dropDownComponent'
 import { NameAndAvatarComponent } from '../nameAndAvatarComponent'
@@ -13,11 +15,11 @@ import { NameAndAvatarComponent } from '../nameAndAvatarComponent'
 import st from './header.module.scss'
 
 type PropsType = {
-  isLoggedIn: boolean
   handlerOnClick: () => void
 }
-export const Header = ({ isLoggedIn, handlerOnClick }: PropsType) => {
+export const Header = ({ handlerOnClick }: PropsType) => {
   const dispatch = useAppDispatch()
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
   const navigate = useNavigate()
   const [logout, {}] = useLogoutMutation()
   const functon1 = () => {
