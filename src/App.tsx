@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import LinearProgress from '@mui/material/LinearProgress'
 import { useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
@@ -11,27 +13,34 @@ import { RootState } from './service/store.ts'
 export function App() {
   const dispatch = useAppDispatch()
   const { data, isLoading } = useMeQuery()
+  const [flag, setFlag] = useState(true)
 
   const navigate = useNavigate()
 
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+
   const isInitialized = useSelector((state: RootState) => state.auth.isInitialized)
 
   if (data) {
-    dispatch(authActions.setValueIsLoggedIn({ value: true }))
-  }
-  if (isLoading) {
-    dispatch(authActions.setValueIsLoggedIn({ value: true }))
-  }
+    if (flag) {
+      dispatch(authActions.setValueIsLoggedIn({ value: true }))
+      setFlag(false)
+    }
+  } // значит залогинен- и надо перекинуть на колоды
+
   const handlerOnClick = () => {
     navigate('/register')
   }
+
+  /*  if (!isInitialized) {
+      return <Loading />
+    }*/
 
   return (
     <div>
       <Header handlerOnClick={handlerOnClick} isLoggedIn={isLoggedIn} />
       {isLoading && <LinearProgress color="inherit" />}
-      {!isInitialized ? <Loading /> : <Outlet />}
+      <Outlet />
     </div>
   )
 }

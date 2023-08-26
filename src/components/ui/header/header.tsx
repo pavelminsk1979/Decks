@@ -31,7 +31,7 @@ export const Header = ({ isLoggedIn, handlerOnClick }: PropsType) => {
       })
   }
 
-  const state = [
+  const data = [
     {
       id: 1,
       icon: <IconMyProfile width="22" height="22" />,
@@ -58,7 +58,7 @@ export const Header = ({ isLoggedIn, handlerOnClick }: PropsType) => {
 
         {isLoggedIn ? (
           <DropDownComponent
-            data={state}
+            data={data}
             dataHeader={dataHeader}
             component={<NameAndAvatarComponent />}
           />

@@ -1,10 +1,14 @@
 import { useState } from 'react'
 
+import { useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom'
+
 import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
 import { decksActions } from '../../../service/decks/decksSlice.ts'
 import { useCreateDeckMutation, useGetCardsQuery } from '../../../service/decks/serveceDecks.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
+import { RootState } from '../../../service/store.ts'
 import { Button } from '../button'
 import { Modal } from '../modal'
 import { PaginationSamurai } from '../paginationSamurai'
@@ -28,6 +32,7 @@ type MainStateType = {
 export const TableDecksWithSettings = () => {
   const {} = useGetCardsQuery({})
   const dispatch = useAppDispatch()
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
   const [mainState, setMainState] = useState<MainStateType>({
     valueCurrentPage: 1,
     amountDecksInOnePage: 8,
@@ -130,6 +135,10 @@ export const TableDecksWithSettings = () => {
   }
   const handlersetValueInput = (valueInput: string) => {
     setMainState({ ...mainState, valueInput: valueInput })
+  }
+
+  if (!isLoggedIn) {
+    return <Navigate to={'/login'} />
   }
 
   return (
