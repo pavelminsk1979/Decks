@@ -26,6 +26,7 @@ type MainStateType = {
   valueInput: string
 }
 export const TableDecksWithSettings = () => {
+  const {} = useGetCardsQuery({})
   const dispatch = useAppDispatch()
   const [mainState, setMainState] = useState<MainStateType>({
     valueCurrentPage: 1,
@@ -37,7 +38,7 @@ export const TableDecksWithSettings = () => {
     valueInput: '',
   })
 
-  let myUserId = 'f2be95b9-4d07-4751-a775-bd612fc9553a'
+  let myUserId = 'fe158fab-0656-43b4-953b-7a851330b10d'
 
   if (mainState.activeBattonTabPanel === 'All Cards') {
     myUserId = ''

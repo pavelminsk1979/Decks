@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { FormRegisterType } from '../../components/ui'
+import { FormLoginType, FormRegisterType } from '../../components/ui'
 
-import { RegisterType } from './typeAuth.ts'
+import { ResponseLoginType, ResponseRegisterType } from './typeAuth.ts'
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -12,7 +12,15 @@ export const authApi = createApi({
   }),
   endpoints: build => {
     return {
-      register: build.mutation<RegisterType, FormRegisterType>({
+      me: build.query<any, void>({
+        query: () => {
+          return {
+            method: 'GET',
+            url: '/v1/auth/me',
+          }
+        },
+      }),
+      register: build.mutation<ResponseRegisterType, FormRegisterType>({
         query: data => {
           return {
             method: 'POST',
@@ -21,8 +29,25 @@ export const authApi = createApi({
           }
         },
       }),
+      login: build.mutation<ResponseLoginType, FormLoginType>({
+        query: data => {
+          return {
+            method: 'POST',
+            url: '/v1/auth/login',
+            body: data,
+          }
+        },
+      }),
+      logout: build.mutation<void, void>({
+        query: () => {
+          return {
+            method: 'POST',
+            url: '/v1/auth/logout',
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useRegisterMutation } = authApi
+export const { useRegisterMutation, useLoginMutation, useLogoutMutation, useMeQuery } = authApi

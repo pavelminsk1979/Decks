@@ -1,15 +1,28 @@
 import LinearProgress from '@mui/material/LinearProgress'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Outlet, useNavigate } from 'react-router-dom'
 
-import { Header } from './components/ui'
-import { useGetCardsQuery } from './service/decks/serveceDecks.ts'
+import { useAppDispatch } from './common/hooks/useAppDispatch.ts'
+import { Header, Loading } from './components/ui'
+import { authActions } from './service/auth/authSlice.ts'
+import { useMeQuery } from './service/auth/serverceAuth.ts'
+import { RootState } from './service/store.ts'
 
 export function App() {
-  const { isLoading } = useGetCardsQuery({})
+  const dispatch = useAppDispatch()
+  const { data, isLoading } = useMeQuery()
+
   const navigate = useNavigate()
 
-  const isLoggedIn = false
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+  const isInitialized = useSelector((state: RootState) => state.auth.isInitialized)
 
+  if (data) {
+    dispatch(authActions.setValueIsLoggedIn({ value: true }))
+  }
+  if (isLoading) {
+    dispatch(authActions.setValueIsLoggedIn({ value: true }))
+  }
   const handlerOnClick = () => {
     navigate('/register')
   }
@@ -18,24 +31,36 @@ export function App() {
     <div>
       <Header handlerOnClick={handlerOnClick} isLoggedIn={isLoggedIn} />
       {isLoading && <LinearProgress color="inherit" />}
-      <div>
-        <div>
-          <NavLink to={'/login'}>нажми и перейди на login</NavLink>
-        </div>
-        <div>
-          <NavLink to={'/register'}>нажми и перейди на register</NavLink>
-        </div>
-        <div>
-          <NavLink to={'/decks'}>нажми и перейди на Таблицу с КОЛОДАМИ</NavLink>
-        </div>
-        <div>
-          <NavLink to={'/profile'}>нажми и перейди на Profile</NavLink>
-        </div>
-      </div>
-      <Outlet />
+      {!isInitialized ? <Loading /> : <Outlet />}
     </div>
   )
 }
+
+/*
+
+return (
+    <div>
+        <Header handlerOnClick={handlerOnClick} isLoggedIn={isLoggedIn} />
+        {isLoading && <LinearProgress color="inherit" />}
+        <div>
+            <div>
+                <NavLink to={'/login'}>нажми и перейди на login</NavLink>
+            </div>
+            <div>
+                <NavLink to={'/register'}>нажми и перейди на register</NavLink>
+            </div>
+            <div>
+                <NavLink to={'/decks'}>нажми и перейди на Таблицу с КОЛОДАМИ</NavLink>
+            </div>
+            <div>
+                <NavLink to={'/profile'}>нажми и перейди на Profile</NavLink>
+            </div>
+        </div>
+        <Outlet />
+    </div>
+)
+
+*/
 
 /*
 import { useState } from 'react'
