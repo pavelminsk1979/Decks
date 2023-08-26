@@ -4,7 +4,6 @@ import { InitialStateType } from './typeAuth.ts'
 
 const initialStateAuth: InitialStateType = {
   isLoggedIn: false,
-  isInitialized: false,
 }
 
 const slice = createSlice({
@@ -13,9 +12,6 @@ const slice = createSlice({
   reducers: {
     setValueIsLoggedIn(state, action: PayloadAction<{ value: boolean }>) {
       state.isLoggedIn = action.payload.value
-    },
-    setValueIsInitialized(state, action: PayloadAction<{ value: boolean }>) {
-      state.isInitialized = action.payload.value
     },
   },
 })
