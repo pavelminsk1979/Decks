@@ -26,8 +26,9 @@ export const Header = ({ isLoggedIn, handlerOnClick }: PropsType) => {
   const functon2 = () => {
     logout()
       .unwrap()
-      .then(res => {
+      .then(() => {
         dispatch(authActions.setValueIsLoggedIn({ value: false }))
+        navigate('/login')
       })
   }
 

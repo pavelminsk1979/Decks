@@ -1,8 +1,7 @@
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 import { ControlCheckbox2 } from '../../../common/controlCheckbox2/controlCheckbox2.tsx'
@@ -10,7 +9,6 @@ import { ControlTextField } from '../../../common/controlTextField/controlTextFi
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
 import { authActions } from '../../../service/auth/authSlice.ts'
 import { useLoginMutation } from '../../../service/auth/serverceAuth.ts'
-import { RootState } from '../../../service/store.ts'
 import { Button } from '../button'
 import { CardComponent } from '../cardComponent'
 import { Typography } from '../typography'
@@ -27,20 +25,17 @@ export type FormLoginType = z.infer<typeof loginSchema>
 export const Login = () => {
   const dispatch = useAppDispatch()
   const [login, {}] = useLoginMutation()
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+  const navigate = useNavigate()
   const { handleSubmit, control } = useForm<FormLoginType>({
     resolver: zodResolver(loginSchema),
   })
   const handlerOnSubmit = (data: FormLoginType) => {
     login(data)
       .unwrap()
-      .then(res => {
+      .then(() => {
         dispatch(authActions.setValueIsLoggedIn({ value: true }))
+        navigate('/decks')
       })
-  }
-
-  if (isLoggedIn) {
-    return <Navigate to={'/decks'} />
   }
 
   return (

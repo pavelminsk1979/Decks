@@ -1,5 +1,4 @@
-import { useSelector } from 'react-redux'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import iconUser from '../../../../src/assets/icons/iconUser.png'
 import { IconEdit } from '../../../assets/icons/iconEdit.tsx'
@@ -7,7 +6,6 @@ import { Logout } from '../../../assets/icons/iconLogOut.tsx'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
 import { authActions } from '../../../service/auth/authSlice.ts'
 import { useLogoutMutation } from '../../../service/auth/serverceAuth.ts'
-import { RootState } from '../../../service/store.ts'
 import { Button } from '../button'
 import { CardComponent } from '../cardComponent'
 import { Typography } from '../typography'
@@ -16,14 +14,14 @@ import st from './profile.module.scss'
 
 export const Profile = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
   const [logout, {}] = useLogoutMutation()
   const navigate = useNavigate()
   const handlerOnClick = () => {
     logout()
       .unwrap()
-      .then(res => {
+      .then(() => {
         dispatch(authActions.setValueIsLoggedIn({ value: false }))
+        navigate('/login')
       })
   }
   const handlerOnClickEditAvatar = () => {
@@ -36,10 +34,6 @@ export const Profile = () => {
   }
   const name = 'Ivan'
   const address = 'someadress@mail.ru'
-
-  if (!isLoggedIn) {
-    return <Navigate to={'/login'} />
-  }
 
   return (
     <div className={st.main}>
