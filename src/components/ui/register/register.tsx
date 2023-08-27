@@ -1,7 +1,7 @@
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 import { ControlTextField } from '../../../common/controlTextField/controlTextField.tsx'
@@ -21,12 +21,17 @@ const loginSchema = z.object({
 export type FormRegisterType = z.infer<typeof loginSchema>
 export const Register = () => {
   const [register, {}] = useRegisterMutation()
+  const navigate = useNavigate()
   const { handleSubmit, control } = useForm<FormRegisterType>({
     resolver: zodResolver(loginSchema),
   })
 
   const handlerOnSubmit = (data: any) => {
     register(data)
+      .unwrap()
+      .then(() => {
+        navigate('/login')
+      })
   }
 
   return (

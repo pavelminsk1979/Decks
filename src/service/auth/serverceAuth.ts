@@ -1,15 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { FormLoginType, FormRegisterType } from '../../components/ui'
+import { customFetchBase } from '../refetch.ts'
 
 import { ResponseLoginType, ResponseRegisterType } from './typeAuth.ts'
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.flashcards.andrii.es/',
-    credentials: 'include',
-  }),
+  baseQuery: customFetchBase,
   endpoints: build => {
     return {
       me: build.query<any, void>({

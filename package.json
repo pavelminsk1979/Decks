@@ -31,6 +31,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@storybook/addon-actions": "^7.1.1",
     "@types/react-router-dom": "^5.3.3",
+    "async-mutex": "^0.4.0",
     "clsx": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

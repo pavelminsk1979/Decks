@@ -1,14 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
+
+import { customFetchBase } from '../refetch.ts'
 
 import { ArgsGetDecksResponseType, DecksItemsType, DecksType } from './typeDecks.ts'
 
 export const decksApi = createApi({
   reducerPath: 'decksApi',
   tagTypes: ['Decks'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.flashcards.andrii.es/',
-    credentials: 'include',
-  }),
+  baseQuery: customFetchBase,
   endpoints: build => {
     return {
       getCards: build.query<DecksType, ArgsGetDecksResponseType>({
