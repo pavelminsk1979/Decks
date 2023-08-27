@@ -7,6 +7,7 @@ import { ResponseLoginType, ResponseRegisterType } from './typeAuth.ts'
 
 export const authApi = createApi({
   reducerPath: 'authApi',
+  tagTypes: ['Me'],
   baseQuery: customFetchBase,
   endpoints: build => {
     return {
@@ -17,6 +18,7 @@ export const authApi = createApi({
             url: '/v1/auth/me',
           }
         },
+        providesTags: ['Me'],
       }),
       register: build.mutation<ResponseRegisterType, FormRegisterType>({
         query: data => {
@@ -35,6 +37,7 @@ export const authApi = createApi({
             body: data,
           }
         },
+        invalidatesTags: ['Me'],
       }),
       logout: build.mutation<void, void>({
         query: () => {
@@ -43,6 +46,20 @@ export const authApi = createApi({
             url: '/v1/auth/logout',
           }
         },
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          const patchResult = dispatch(
+            authApi.util.updateQueryData('me', undefined, () => {
+              return null
+            })
+          )
+
+          try {
+            await queryFulfilled
+          } catch {
+            patchResult.undo()
+          }
+        },
+        invalidatesTags: ['Me'],
       }),
     }
   },
