@@ -10,7 +10,7 @@ export const decksApi = createApi({
   baseQuery: customFetchBase,
   endpoints: build => {
     return {
-      getCards: build.query<DecksType, ArgsGetDecksResponseType>({
+      getDecks: build.query<DecksType, ArgsGetDecksResponseType>({
         query: args => {
           return {
             method: 'GET',
@@ -34,4 +34,4 @@ export const decksApi = createApi({
   },
 })
 
-export const { useGetCardsQuery, useCreateDeckMutation } = decksApi
+export const { useGetDecksQuery, useCreateDeckMutation } = decksApi

@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom'
 import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
 import { decksActions } from '../../../service/decks/decksSlice.ts'
-import { useCreateDeckMutation, useGetCardsQuery } from '../../../service/decks/serveceDecks.ts'
+import { useCreateDeckMutation, useGetDecksQuery } from '../../../service/decks/serveceDecks.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
 import { RootState } from '../../../service/store.ts'
 import { Button } from '../button'
@@ -30,7 +30,6 @@ type MainStateType = {
   valueInput: string
 }
 export const TableDecksWithSettings = () => {
-  const {} = useGetCardsQuery({})
   const dispatch = useAppDispatch()
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
   const [mainState, setMainState] = useState<MainStateType>({
@@ -49,7 +48,7 @@ export const TableDecksWithSettings = () => {
     myUserId = ''
   }
 
-  const { data } = useGetCardsQuery({
+  const { data } = useGetDecksQuery({
     name: mainState.valueTextField,
     minCardsCount: mainState.valueSlider !== null ? mainState.valueSlider[0] : undefined,
     maxCardsCount: mainState.valueSlider !== null ? mainState.valueSlider[1] : undefined,
