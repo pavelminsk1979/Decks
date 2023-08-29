@@ -2,14 +2,12 @@ import { useState } from 'react'
 
 import { ArrowIconDown } from '../../../assets/icons/arrowIconDown.tsx'
 import { ArrowUpIcon } from '../../../assets/icons/arrowUpIcon.tsx'
-import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
-import { EditIcon } from '../../../assets/icons/editIcon.tsx'
 import { CardsIcon } from '../../../assets/icons/iconCards.tsx'
 import { PlayIcon } from '../../../assets/icons/playIcon.tsx'
 import { DATA_HEADERS_TABLE } from '../../../common/constants.ts'
+import { ModalDeleteDeck } from '../../../service/decks/modals/modalDeleteDeck.tsx'
+import { ModalEditDeck } from '../../../service/decks/modals/modalEditDeck.tsx'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
-import { Modal } from '../modal'
-import { TextField } from '../textField'
 
 import st from './tableDecks.module.scss'
 
@@ -18,10 +16,9 @@ type PropsType = {
   decksItems: DecksItemsType[] | undefined
   sendDataToServer: (value: string) => void
   onClickModalDeleteDeck: (idDeck: string) => void
-  onClickModalEditDeck: (idDeck: string) => void
+  onClickModalEditDeck: (idDeck: string, valueInput: string) => void
   valueInput: string
   setValueInput: (valueInput: string) => void
-  handlerCloseModalEditDec: () => void
 }
 type SortType = {
   key: string
@@ -33,9 +30,6 @@ export const TableDecks = ({
   myUserIdForTableDecks,
   onClickModalDeleteDeck,
   onClickModalEditDeck,
-  valueInput,
-  setValueInput,
-  handlerCloseModalEditDec,
 }: PropsType) => {
   const [sort, setSort] = useState<SortType>(null)
   const handlerSort = (key: string) => {
@@ -63,8 +57,8 @@ export const TableDecks = ({
   const handlerOnClickModalDeleteDeck = (idDeck: string) => {
     onClickModalDeleteDeck(idDeck)
   }
-  const handlerOnClickModalEditDeck = (idDeck: string) => {
-    onClickModalEditDeck(idDeck)
+  const handlerOnClickModalEditDeck = (idDeck: string, valueInput: string) => {
+    onClickModalEditDeck(idDeck, valueInput)
   }
 
   return (
@@ -94,35 +88,15 @@ export const TableDecks = ({
             {deck.userId === myUserIdForTableDecks ? (
               <td className={st.tdIcons}>
                 <PlayIcon />
-                <Modal
-                  icon={<EditIcon />}
-                  sizeWidthModal={'540px'}
-                  sizeHeightModal={'290px'}
-                  titleModal={'Edit Deck'}
-                  titleButtonExecutor={'Edit Deck'}
-                  handlerOnClick={() => handlerOnClickModalEditDeck(deck.id)}
-                  handlerCloseModal={handlerCloseModalEditDec}
-                >
-                  <TextField
-                    sizeWidthTextField="480px"
-                    valueInput={valueInput}
-                    setValueInput={setValueInput}
-                    placeholder={'Name'}
-                    label={'Name Deck'}
-                    type="email"
-                  />
-                </Modal>
-                <Modal
-                  icon={<DeleteIcon />}
-                  sizeWidthModal={'540px'}
-                  sizeHeightModal={'230px'}
-                  titleModal={'Delete Deck'}
-                  titleButtonExecutor={'Delete Deck'}
-                  handlerOnClick={() => handlerOnClickModalDeleteDeck(deck.id)}
-                >
-                  Do you really want to remove Deck - {deck.name}? This deck will be permanently
-                  deleted.
-                </Modal>
+                <ModalEditDeck
+                  OnClickModalEditDeck={(valueInput: string) =>
+                    handlerOnClickModalEditDeck(deck.id, valueInput)
+                  }
+                />
+                <ModalDeleteDeck
+                  handlerOnClickModalDeleteDeck={() => handlerOnClickModalDeleteDeck(deck.id)}
+                  nameDeck={deck.name}
+                />
 
                 <CardsIcon width="18" height="18" />
               </td>

@@ -39,3 +39,8 @@ export type ArgsGetDecksResponseType = {
   currentPage?: number
   itemsPerPage?: number
 }
+
+export type ArgEditType = {
+  id: string
+  name: string
+}

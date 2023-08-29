@@ -3,6 +3,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { customFetchBase } from '../refetch.ts'
 
 import {
+  ArgEditType,
   ArgsGetDecksResponseType,
   DecksItemsType,
   DecksType,
@@ -15,7 +16,7 @@ export const decksApi = createApi({
   baseQuery: customFetchBase,
   endpoints: build => {
     return {
-      editDecks: build.mutation<any, any>({
+      editDecks: build.mutation<DecksItemsType, ArgEditType>({
         query: arg => {
           return {
             method: 'PATCH',
