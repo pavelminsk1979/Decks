@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom'
 
 import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
+import { useMeQuery } from '../../../service/auth/serverceAuth.ts'
 import { decksActions } from '../../../service/decks/decksSlice.ts'
 import { useCreateDeckMutation, useGetDecksQuery } from '../../../service/decks/serveceDecks.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
@@ -30,6 +31,7 @@ type MainStateType = {
   valueInput: string
 }
 export const TableDecksWithSettings = () => {
+  const { data: meData } = useMeQuery()
   const dispatch = useAppDispatch()
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
   const [mainState, setMainState] = useState<MainStateType>({
@@ -42,12 +44,17 @@ export const TableDecksWithSettings = () => {
     valueInput: '',
   })
 
-  let myUserId = 'fe158fab-0656-43b4-953b-7a851330b10d'
+  let myUserId = ''
+  let myUserIdForTableDecks = ''
 
+  if (meData) {
+    myUserId = meData.id
+    myUserIdForTableDecks = meData.id
+  }
   if (mainState.activeBattonTabPanel === 'All Cards') {
     myUserId = ''
   }
-
+  console.log(myUserIdForTableDecks)
   const { data } = useGetDecksQuery({
     name: mainState.valueTextField,
     minCardsCount: mainState.valueSlider !== null ? mainState.valueSlider[0] : undefined,
@@ -198,7 +205,11 @@ export const TableDecksWithSettings = () => {
           Clear Filter
         </Button>
       </div>
-      <TableDecks decksItems={decksItems} sendDataToServer={sendDataToServer} />
+      <TableDecks
+        myUserIdForTableDecks={myUserIdForTableDecks}
+        decksItems={decksItems}
+        sendDataToServer={sendDataToServer}
+      />
       <div className={st.pagination}>
         <PaginationSamurai
           amountDecksInOnePage={mainState.amountDecksInOnePage}
