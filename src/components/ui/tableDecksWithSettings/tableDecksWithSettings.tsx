@@ -7,7 +7,11 @@ import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
 import { useMeQuery } from '../../../service/auth/serverceAuth.ts'
 import { decksActions } from '../../../service/decks/decksSlice.ts'
-import { useCreateDeckMutation, useGetDecksQuery } from '../../../service/decks/serveceDecks.ts'
+import {
+  useCreateDeckMutation,
+  useDeleteDecksMutation,
+  useGetDecksQuery,
+} from '../../../service/decks/serveceDecks.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
 import { RootState } from '../../../service/store.ts'
 import { Button } from '../button'
@@ -34,6 +38,7 @@ export const TableDecksWithSettings = () => {
   const { data: meData } = useMeQuery()
   const dispatch = useAppDispatch()
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+  const [deleteCard] = useDeleteDecksMutation()
   const [mainState, setMainState] = useState<MainStateType>({
     valueCurrentPage: 1,
     amountDecksInOnePage: 8,
@@ -54,7 +59,6 @@ export const TableDecksWithSettings = () => {
   if (mainState.activeBattonTabPanel === 'All Cards') {
     myUserId = ''
   }
-  console.log(myUserIdForTableDecks)
   const { data } = useGetDecksQuery({
     name: mainState.valueTextField,
     minCardsCount: mainState.valueSlider !== null ? mainState.valueSlider[0] : undefined,
@@ -142,6 +146,9 @@ export const TableDecksWithSettings = () => {
   const handlersetValueInput = (valueInput: string) => {
     setMainState({ ...mainState, valueInput: valueInput })
   }
+  const onClickDeleteDeck = (idDeck: string) => {
+    deleteCard(idDeck)
+  }
 
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />
@@ -209,6 +216,7 @@ export const TableDecksWithSettings = () => {
         myUserIdForTableDecks={myUserIdForTableDecks}
         decksItems={decksItems}
         sendDataToServer={sendDataToServer}
+        onClickDeleteDeck={onClickDeleteDeck}
       />
       <div className={st.pagination}>
         <PaginationSamurai

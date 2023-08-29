@@ -10,6 +10,15 @@ export const decksApi = createApi({
   baseQuery: customFetchBase,
   endpoints: build => {
     return {
+      deleteDecks: build.mutation<any, string>({
+        query: (id: string) => {
+          return {
+            method: 'DELETE',
+            url: `/v1/decks/${id}`,
+          }
+        },
+        invalidatesTags: ['Decks'],
+      }),
       getDecks: build.query<DecksType, ArgsGetDecksResponseType>({
         query: args => {
           return {
@@ -34,4 +43,4 @@ export const decksApi = createApi({
   },
 })
 
-export const { useGetDecksQuery, useCreateDeckMutation } = decksApi
+export const { useGetDecksQuery, useCreateDeckMutation, useDeleteDecksMutation } = decksApi

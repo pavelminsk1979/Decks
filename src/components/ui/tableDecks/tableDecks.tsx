@@ -15,12 +15,18 @@ type PropsType = {
   myUserIdForTableDecks: string
   decksItems: DecksItemsType[] | undefined
   sendDataToServer: (value: string) => void
+  onClickDeleteDeck: (idDeck: string) => void
 }
 type SortType = {
   key: string
   direction: 'asc' | 'desc'
 } | null
-export const TableDecks = ({ decksItems, sendDataToServer, myUserIdForTableDecks }: PropsType) => {
+export const TableDecks = ({
+  decksItems,
+  sendDataToServer,
+  myUserIdForTableDecks,
+  onClickDeleteDeck,
+}: PropsType) => {
   const [sort, setSort] = useState<SortType>(null)
   const handlerSort = (key: string) => {
     if (key !== 'action') {
@@ -43,6 +49,12 @@ export const TableDecks = ({ decksItems, sendDataToServer, myUserIdForTableDecks
       }
     }
   }
+
+  const handlerDeleteDeck = (idDeck: string) => {
+    onClickDeleteDeck(idDeck)
+  }
+
+  console.log(decksItems)
 
   return (
     <table className={st.table}>
@@ -72,7 +84,7 @@ export const TableDecks = ({ decksItems, sendDataToServer, myUserIdForTableDecks
               <td className={st.tdIcons}>
                 <PlayIcon />
                 <EditIcon />
-                <DeleteIcon />
+                <DeleteIcon onClick={() => handlerDeleteDeck(deck.id)} />
                 <CardsIcon width="18" height="18" />
               </td>
             ) : (
