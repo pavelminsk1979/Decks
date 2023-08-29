@@ -9,6 +9,7 @@ import { PlayIcon } from '../../../assets/icons/playIcon.tsx'
 import { DATA_HEADERS_TABLE } from '../../../common/constants.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
 import { Modal } from '../modal'
+import { TextField } from '../textField'
 
 import st from './tableDecks.module.scss'
 
@@ -17,6 +18,10 @@ type PropsType = {
   decksItems: DecksItemsType[] | undefined
   sendDataToServer: (value: string) => void
   onClickModalDeleteDeck: (idDeck: string) => void
+  onClickModalEditDeck: (idDeck: string) => void
+  valueInput: string
+  setValueInput: (valueInput: string) => void
+  handlerCloseModalEditDec: () => void
 }
 type SortType = {
   key: string
@@ -27,6 +32,10 @@ export const TableDecks = ({
   sendDataToServer,
   myUserIdForTableDecks,
   onClickModalDeleteDeck,
+  onClickModalEditDeck,
+  valueInput,
+  setValueInput,
+  handlerCloseModalEditDec,
 }: PropsType) => {
   const [sort, setSort] = useState<SortType>(null)
   const handlerSort = (key: string) => {
@@ -53,6 +62,9 @@ export const TableDecks = ({
 
   const handlerOnClickModalDeleteDeck = (idDeck: string) => {
     onClickModalDeleteDeck(idDeck)
+  }
+  const handlerOnClickModalEditDeck = (idDeck: string) => {
+    onClickModalEditDeck(idDeck)
   }
 
   return (
@@ -82,7 +94,24 @@ export const TableDecks = ({
             {deck.userId === myUserIdForTableDecks ? (
               <td className={st.tdIcons}>
                 <PlayIcon />
-                <EditIcon />
+                <Modal
+                  icon={<EditIcon />}
+                  sizeWidthModal={'540px'}
+                  sizeHeightModal={'290px'}
+                  titleModal={'Edit Deck'}
+                  titleButtonExecutor={'Edit Deck'}
+                  handlerOnClick={() => handlerOnClickModalEditDeck(deck.id)}
+                  handlerCloseModal={handlerCloseModalEditDec}
+                >
+                  <TextField
+                    sizeWidthTextField="480px"
+                    valueInput={valueInput}
+                    setValueInput={setValueInput}
+                    placeholder={'Name'}
+                    label={'Name Deck'}
+                    type="email"
+                  />
+                </Modal>
                 <Modal
                   icon={<DeleteIcon />}
                   sizeWidthModal={'540px'}

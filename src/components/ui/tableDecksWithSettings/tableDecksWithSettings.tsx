@@ -10,6 +10,7 @@ import { decksActions } from '../../../service/decks/decksSlice.ts'
 import {
   useCreateDeckMutation,
   useDeleteDecksMutation,
+  useEditDecksMutation,
   useGetDecksQuery,
 } from '../../../service/decks/serveceDecks.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
@@ -39,6 +40,7 @@ export const TableDecksWithSettings = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
   const [deleteCard] = useDeleteDecksMutation()
+  const [editCard] = useEditDecksMutation()
   const [mainState, setMainState] = useState<MainStateType>({
     valueCurrentPage: 1,
     amountDecksInOnePage: 8,
@@ -149,6 +151,12 @@ export const TableDecksWithSettings = () => {
   const onClickModalDeleteDeck = (idDeck: string) => {
     deleteCard(idDeck)
   }
+  const onClickModalEditDeck = (idDeck: string) => {
+    const arg = { id: idDeck, name: mainState.valueInput }
+
+    editCard(arg)
+    setMainState({ ...mainState, valueInput: '' })
+  }
 
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />
@@ -213,6 +221,10 @@ export const TableDecksWithSettings = () => {
         </Button>
       </div>
       <TableDecks
+        handlerCloseModalEditDec={handlerCloseModal}
+        setValueInput={handlersetValueInput}
+        valueInput={mainState.valueInput}
+        onClickModalEditDeck={onClickModalEditDeck}
         onClickModalDeleteDeck={onClickModalDeleteDeck}
         myUserIdForTableDecks={myUserIdForTableDecks}
         decksItems={decksItems}
