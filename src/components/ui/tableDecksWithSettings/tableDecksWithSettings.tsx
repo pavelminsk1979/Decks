@@ -151,11 +151,10 @@ export const TableDecksWithSettings = () => {
   const onClickModalDeleteDeck = (idDeck: string) => {
     deleteCard(idDeck)
   }
-  const onClickModalEditDeck = (idDeck: string) => {
-    const arg = { id: idDeck, name: mainState.valueInput }
+  const onClickModalEditDeck = (idDeck: string, valueInput: string) => {
+    const arg = { id: idDeck, name: valueInput }
 
     editCard(arg)
-    setMainState({ ...mainState, valueInput: '' })
   }
 
   if (!isLoggedIn) {
@@ -221,7 +220,6 @@ export const TableDecksWithSettings = () => {
         </Button>
       </div>
       <TableDecks
-        handlerCloseModalEditDec={handlerCloseModal}
         setValueInput={handlersetValueInput}
         valueInput={mainState.valueInput}
         onClickModalEditDeck={onClickModalEditDeck}
