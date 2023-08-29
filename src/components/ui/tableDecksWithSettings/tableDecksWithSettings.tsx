@@ -146,7 +146,7 @@ export const TableDecksWithSettings = () => {
   const handlersetValueInput = (valueInput: string) => {
     setMainState({ ...mainState, valueInput: valueInput })
   }
-  const onClickDeleteDeck = (idDeck: string) => {
+  const onClickModalDeleteDeck = (idDeck: string) => {
     deleteCard(idDeck)
   }
 
@@ -213,10 +213,10 @@ export const TableDecksWithSettings = () => {
         </Button>
       </div>
       <TableDecks
+        onClickModalDeleteDeck={onClickModalDeleteDeck}
         myUserIdForTableDecks={myUserIdForTableDecks}
         decksItems={decksItems}
         sendDataToServer={sendDataToServer}
-        onClickDeleteDeck={onClickDeleteDeck}
       />
       <div className={st.pagination}>
         <PaginationSamurai

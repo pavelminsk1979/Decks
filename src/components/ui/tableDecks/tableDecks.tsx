@@ -8,6 +8,7 @@ import { CardsIcon } from '../../../assets/icons/iconCards.tsx'
 import { PlayIcon } from '../../../assets/icons/playIcon.tsx'
 import { DATA_HEADERS_TABLE } from '../../../common/constants.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
+import { Modal } from '../modal'
 
 import st from './tableDecks.module.scss'
 
@@ -15,7 +16,7 @@ type PropsType = {
   myUserIdForTableDecks: string
   decksItems: DecksItemsType[] | undefined
   sendDataToServer: (value: string) => void
-  onClickDeleteDeck: (idDeck: string) => void
+  onClickModalDeleteDeck: (idDeck: string) => void
 }
 type SortType = {
   key: string
@@ -25,7 +26,7 @@ export const TableDecks = ({
   decksItems,
   sendDataToServer,
   myUserIdForTableDecks,
-  onClickDeleteDeck,
+  onClickModalDeleteDeck,
 }: PropsType) => {
   const [sort, setSort] = useState<SortType>(null)
   const handlerSort = (key: string) => {
@@ -50,11 +51,9 @@ export const TableDecks = ({
     }
   }
 
-  const handlerDeleteDeck = (idDeck: string) => {
-    onClickDeleteDeck(idDeck)
+  const handlerOnClickModalDeleteDeck = (idDeck: string) => {
+    onClickModalDeleteDeck(idDeck)
   }
-
-  console.log(decksItems)
 
   return (
     <table className={st.table}>
@@ -84,7 +83,18 @@ export const TableDecks = ({
               <td className={st.tdIcons}>
                 <PlayIcon />
                 <EditIcon />
-                <DeleteIcon onClick={() => handlerDeleteDeck(deck.id)} />
+                <Modal
+                  icon={<DeleteIcon />}
+                  sizeWidthModal={'540px'}
+                  sizeHeightModal={'230px'}
+                  titleModal={'Delete Deck'}
+                  titleButtonExecutor={'Delete Deck'}
+                  handlerOnClick={() => handlerOnClickModalDeleteDeck(deck.id)}
+                >
+                  Do you really want to remove Deck - {deck.name}? This deck will be permanently
+                  deleted.
+                </Modal>
+
                 <CardsIcon width="18" height="18" />
               </td>
             ) : (

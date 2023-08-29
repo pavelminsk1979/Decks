@@ -28,6 +28,7 @@ export type DecksItemsType = {
   cardsCount: number
   author: DecksItemsAuthorType
 }
+export type deleteDecksResponseType = Omit<DecksItemsType, 'author'>
 
 export type ArgsGetDecksResponseType = {
   minCardsCount?: number

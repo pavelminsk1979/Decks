@@ -2,7 +2,12 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { customFetchBase } from '../refetch.ts'
 
-import { ArgsGetDecksResponseType, DecksItemsType, DecksType } from './typeDecks.ts'
+import {
+  ArgsGetDecksResponseType,
+  DecksItemsType,
+  DecksType,
+  deleteDecksResponseType,
+} from './typeDecks.ts'
 
 export const decksApi = createApi({
   reducerPath: 'decksApi',
@@ -10,7 +15,7 @@ export const decksApi = createApi({
   baseQuery: customFetchBase,
   endpoints: build => {
     return {
-      deleteDecks: build.mutation<any, string>({
+      deleteDecks: build.mutation<deleteDecksResponseType, string>({
         query: (id: string) => {
           return {
             method: 'DELETE',

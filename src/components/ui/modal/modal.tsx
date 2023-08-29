@@ -9,14 +9,15 @@ import { Typography } from '../typography'
 import st from './modal.module.scss'
 
 type PropsType = {
-  titleButtonOpenModal: string
+  titleButtonOpenModal?: string
   titleModal: string
   children: ReactNode
   sizeWidthModal?: string
   sizeHeightModal?: string
   titleButtonExecutor: string
   handlerOnClick: () => void
-  handlerCloseModal: () => void
+  handlerCloseModal?: () => void
+  icon?: JSX.Element
 }
 export const Modal = ({
   titleButtonOpenModal,
@@ -27,10 +28,15 @@ export const Modal = ({
   titleButtonExecutor,
   handlerOnClick,
   handlerCloseModal,
+  icon,
 }: PropsType) => (
   <Dialog.Root>
     <Dialog.Trigger asChild>
-      <Button variant={'primary'}>{titleButtonOpenModal}</Button>
+      {titleButtonOpenModal ? (
+        <Button variant={'primary'}>{titleButtonOpenModal}</Button>
+      ) : (
+        <span>{icon}</span>
+      )}
     </Dialog.Trigger>
     <Dialog.Portal>
       <Dialog.Overlay className={st.DialogOverlay} />
