@@ -30,3 +30,22 @@ export const DATA_TAB_PANEL: ItemTabType[] = [
   { id: 'tab1', name: 'My Cards' },
   { id: 'tab2', name: 'All Cards' },
 ]
+
+export const DATA_HEADERS_TABLE_CARDS: DataHeaderType[] = [
+  {
+    key: 'question',
+    title: 'Question',
+  },
+  {
+    key: 'answer',
+    title: 'Answer',
+  },
+  {
+    key: 'updated',
+    title: 'Last Updated',
+  },
+  {
+    key: 'createdBy',
+    title: 'Grade',
+  },
+]
