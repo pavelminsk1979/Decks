@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate, Outlet, RouteObject } from 'react-router
 
 import { App } from '../App.tsx'
 import { Login, Profile, Register } from '../components/ui'
+import { TableCards } from '../page/cards/tableCards.tsx'
 import { TableDecksWithSettings } from '../page/decks/tableDecksWithSettings/tableDecksWithSettings.tsx'
 import { RootState } from '../service/store.ts'
 
@@ -20,6 +21,10 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/profile',
     element: <Profile />,
+  },
+  {
+    path: '/cards',
+    element: <TableCards />,
   },
 ]
 const publicRoutes: RouteObject[] = [

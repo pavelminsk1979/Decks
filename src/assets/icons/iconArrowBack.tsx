@@ -4,10 +4,10 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =
   <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" ref={ref} {...props}>
     <path
       fill="#fff"
-      d="M5.5 9.5a1 1 0 0 1 1.7-.8l5.3 4.5L18 8.8a1 1 0 0 1 1.4.2 1 1 0 0 1-.2 1.5l-6 4.8a1 1 0 0 1-1.2 0l-6-5a1 1 0 0 1-.4-.8Z"
+      d="M19 11H7.1l3.7-4.4a1 1 0 0 0-1.6-1.2l-5 6v.1l-.1.1-.1.4v.4h.1l.1.2 5 6a1 1 0 0 0 1.6-1.2L7 13h12a1 1 0 0 0 0-2Z"
     />
   </svg>
 )
 const ForwardRef = forwardRef(SvgComponent)
 
-export const ArrowIconDown = memo(ForwardRef)
+export const IconArrowBack = memo(ForwardRef)

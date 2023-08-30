@@ -1,12 +1,10 @@
-import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { ArrowIconDown } from '../../../../assets/icons/arrowIconDown.tsx'
-import { ArrowUpIcon } from '../../../../assets/icons/arrowUpIcon.tsx'
 import { CardsIcon } from '../../../../assets/icons/iconCards.tsx'
 import { PlayIcon } from '../../../../assets/icons/playIcon.tsx'
-import { DATA_HEADERS_TABLE } from '../../../../common/constants.ts'
 import { DecksItemsType } from '../../../../service/decks/typeDecks.ts'
 
+import { HeaderTable } from './headerTable/headerTable.tsx'
 import { ModalDeleteDeck } from './modals/modalDeleteDeck.tsx'
 import { ModalEditDeck } from './modals/modalEditDeck.tsx'
 import st from './tableDecks.module.scss'
@@ -20,10 +18,7 @@ type PropsType = {
   valueInput: string
   setValueInput: (valueInput: string) => void
 }
-type SortType = {
-  key: string
-  direction: 'asc' | 'desc'
-} | null
+
 export const TableDecks = ({
   decksItems,
   sendDataToServer,
@@ -31,52 +26,20 @@ export const TableDecks = ({
   onClickModalDeleteDeck,
   onClickModalEditDeck,
 }: PropsType) => {
-  const [sort, setSort] = useState<SortType>(null)
-  const handlerSort = (key: string) => {
-    if (key !== 'action') {
-      if (sort && sort.key === key) {
-        const updatedSort: SortType = {
-          key: key,
-          direction: sort.direction === 'asc' ? 'desc' : 'asc',
-        }
-
-        setSort(updatedSort)
-        sendDataToServer(`${updatedSort.key}-${updatedSort.direction}`)
-      } else {
-        const updatedSort: SortType = {
-          key: key,
-          direction: 'asc',
-        }
-
-        setSort(updatedSort)
-        sendDataToServer(`${updatedSort.key}-${updatedSort.direction}`)
-      }
-    }
-  }
-
+  const navigate = useNavigate()
   const handlerOnClickModalDeleteDeck = (idDeck: string) => {
     onClickModalDeleteDeck(idDeck)
   }
   const handlerOnClickModalEditDeck = (idDeck: string, valueInput: string) => {
     onClickModalEditDeck(idDeck, valueInput)
   }
+  const handlerOnClick = () => {
+    navigate('/cards')
+  }
 
   return (
     <table className={st.table}>
-      <thead>
-        <tr className={st.header}>
-          {DATA_HEADERS_TABLE.map(el => (
-            <th key={el.key} className={st.thHeader} onClick={() => handlerSort(el.key)}>
-              {el.title}
-              {sort === null && <ArrowUpIcon />}
-              {sort?.key === el.key && sort?.direction === 'asc' && <ArrowUpIcon />}
-              {sort?.key === el.key && sort?.direction === 'desc' && <ArrowIconDown />}
-              {sort && sort?.key !== el.key && <ArrowUpIcon />}
-            </th>
-          ))}
-          <th></th>
-        </tr>
-      </thead>
+      <HeaderTable sendDataToServer={sendDataToServer} />
       <tbody>
         {decksItems?.map(deck => (
           <tr key={deck.id} className={st.tr}>
@@ -87,7 +50,7 @@ export const TableDecks = ({
 
             <td className={st.tdIcons}>
               <PlayIcon />
-              <CardsIcon width="18" height="18" />
+              <CardsIcon width="18" height="18" onClick={handlerOnClick} />
               {deck.userId === myUserIdForTableDecks && (
                 <>
                   <ModalEditDeck

@@ -22,4 +22,5 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =
 )
 
 const ForwardRef = forwardRef(SvgComponent)
+
 export const Logout = memo(ForwardRef)
