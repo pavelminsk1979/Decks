@@ -1,5 +1,5 @@
-import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
-import { Modal } from '../../../components/ui'
+import { DeleteIcon } from '../../../../../assets/icons/deleteIcon.tsx'
+import { Modal } from '../../../../../components/ui'
 
 type PropsType = {
   handlerOnClickModalDeleteDeck: () => void

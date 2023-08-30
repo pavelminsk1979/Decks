@@ -5,6 +5,14 @@ import { Navigate } from 'react-router-dom'
 
 import { DeleteIcon } from '../../../assets/icons/deleteIcon.tsx'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
+import {
+  Button,
+  PaginationSamurai,
+  SliderBar,
+  TabPanel,
+  TextField,
+  Typography,
+} from '../../../components/ui'
 import { useMeQuery } from '../../../service/auth/serverceAuth.ts'
 import { decksActions } from '../../../service/decks/decksSlice.ts'
 import {
@@ -15,15 +23,9 @@ import {
 } from '../../../service/decks/serveceDecks.ts'
 import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
 import { RootState } from '../../../service/store.ts'
-import { Button } from '../button'
-import { Modal } from '../modal'
-import { PaginationSamurai } from '../paginationSamurai'
-import { SliderBar } from '../slider'
-import { TableDecks } from '../tableDecks'
-import { TabPanel } from '../tabPanel'
-import { TextField } from '../textField'
-import { Typography } from '../typography'
 
+import { ModalCreateDeck } from './modal/modalCreateDeck.tsx'
+import { TableDecks } from './tableDecks/tableDecks.tsx'
 import st from './tableDecksWithSettings.module.scss'
 
 type MainStateType = {
@@ -138,13 +140,10 @@ export const TableDecksWithSettings = () => {
     setMainState({ ...mainState, valueSortTable: value })
     dispatch(decksActions.setOrderBy({ value }))
   }
-  const handlerOnClickModal = () => {
-    createDeck({ name: mainState.valueInput })
-    setMainState({ ...mainState, valueInput: '' })
+  const onClickModalCreateDeck = (valueInput: string) => {
+    createDeck({ name: valueInput })
   }
-  const handlerCloseModal = () => {
-    setMainState({ ...mainState, valueInput: '' })
-  }
+
   const handlersetValueInput = (valueInput: string) => {
     setMainState({ ...mainState, valueInput: valueInput })
   }
@@ -165,24 +164,7 @@ export const TableDecksWithSettings = () => {
     <div className={st.common}>
       <div className={st.blockTitleButton}>
         <Typography variant={'large'}>Packs list</Typography>
-        <Modal
-          titleButtonOpenModal={'Add New Deck'}
-          sizeWidthModal={'540px'}
-          sizeHeightModal={'290px'}
-          titleModal={'Add New Deck'}
-          titleButtonExecutor={'Add New Deck'}
-          handlerOnClick={handlerOnClickModal}
-          handlerCloseModal={handlerCloseModal}
-        >
-          <TextField
-            sizeWidthTextField="480px"
-            valueInput={mainState.valueInput}
-            setValueInput={handlersetValueInput}
-            placeholder={'Name'}
-            label={'Name Deck'}
-            type="email"
-          />
-        </Modal>
+        <ModalCreateDeck onClickModalCreateDeck={onClickModalCreateDeck} />
       </div>
       <div className={st.blockSettings}>
         <TextField

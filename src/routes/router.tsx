@@ -2,7 +2,8 @@ import { useSelector } from 'react-redux'
 import { createBrowserRouter, Navigate, Outlet, RouteObject } from 'react-router-dom'
 
 import { App } from '../App.tsx'
-import { Login, Profile, Register, TableDecksWithSettings } from '../components/ui'
+import { Login, Profile, Register } from '../components/ui'
+import { TableDecksWithSettings } from '../page/decks/tableDecksWithSettings/tableDecksWithSettings.tsx'
 import { RootState } from '../service/store.ts'
 
 function PrivateRoutes() {

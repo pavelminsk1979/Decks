@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { EditIcon } from '../../../assets/icons/editIcon.tsx'
-import { Modal, TextField } from '../../../components/ui'
+import { EditIcon } from '../../../../../assets/icons/editIcon.tsx'
+import { Modal, TextField } from '../../../../../components/ui'
 
 type PropsType = {
   OnClickModalEditDeck: (valueInput: string) => void

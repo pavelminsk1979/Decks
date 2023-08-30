@@ -1,14 +1,14 @@
 import { useState } from 'react'
 
-import { ArrowIconDown } from '../../../assets/icons/arrowIconDown.tsx'
-import { ArrowUpIcon } from '../../../assets/icons/arrowUpIcon.tsx'
-import { CardsIcon } from '../../../assets/icons/iconCards.tsx'
-import { PlayIcon } from '../../../assets/icons/playIcon.tsx'
-import { DATA_HEADERS_TABLE } from '../../../common/constants.ts'
-import { ModalDeleteDeck } from '../../../service/decks/modals/modalDeleteDeck.tsx'
-import { ModalEditDeck } from '../../../service/decks/modals/modalEditDeck.tsx'
-import { DecksItemsType } from '../../../service/decks/typeDecks.ts'
+import { ArrowIconDown } from '../../../../assets/icons/arrowIconDown.tsx'
+import { ArrowUpIcon } from '../../../../assets/icons/arrowUpIcon.tsx'
+import { CardsIcon } from '../../../../assets/icons/iconCards.tsx'
+import { PlayIcon } from '../../../../assets/icons/playIcon.tsx'
+import { DATA_HEADERS_TABLE } from '../../../../common/constants.ts'
+import { DecksItemsType } from '../../../../service/decks/typeDecks.ts'
 
+import { ModalDeleteDeck } from './modals/modalDeleteDeck.tsx'
+import { ModalEditDeck } from './modals/modalEditDeck.tsx'
 import st from './tableDecks.module.scss'
 
 type PropsType = {
