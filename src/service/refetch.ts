@@ -29,7 +29,6 @@ export const customFetchBase: BaseQueryFn<
           extraOptions
         )
 
-        console.log(refreshResult)
         if (refreshResult?.meta?.response?.status === 204) {
           result = await baseQuery(args, api, extraOptions)
         }

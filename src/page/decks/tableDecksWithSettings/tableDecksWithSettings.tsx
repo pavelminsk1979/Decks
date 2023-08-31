@@ -54,11 +54,9 @@ export const TableDecksWithSettings = () => {
   })
 
   let myUserId = ''
-  let myUserIdForTableDecks = ''
 
   if (meData) {
     myUserId = meData.id
-    myUserIdForTableDecks = meData.id
   }
   if (mainState.activeBattonTabPanel === 'All Cards') {
     myUserId = ''
@@ -206,7 +204,6 @@ export const TableDecksWithSettings = () => {
         valueInput={mainState.valueInput}
         onClickModalEditDeck={onClickModalEditDeck}
         onClickModalDeleteDeck={onClickModalDeleteDeck}
-        myUserIdForTableDecks={myUserIdForTableDecks}
         decksItems={decksItems}
         sendDataToServer={sendDataToServer}
       />

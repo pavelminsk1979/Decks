@@ -10,4 +10,6 @@ export type ResponseLoginType = {
 
 export type InitialStateType = {
   isLoggedIn: boolean
+  myUserId: string
+  currentUserId: string
 }

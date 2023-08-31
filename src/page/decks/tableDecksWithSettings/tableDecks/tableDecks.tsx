@@ -1,8 +1,12 @@
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { CardsIcon } from '../../../../assets/icons/iconCards.tsx'
 import { PlayIcon } from '../../../../assets/icons/playIcon.tsx'
+import { useAppDispatch } from '../../../../common/hooks/useAppDispatch.ts'
+import { authActions } from '../../../../service/auth/authSlice.ts'
 import { DecksItemsType } from '../../../../service/decks/typeDecks.ts'
+import { RootState } from '../../../../service/store.ts'
 
 import { HeaderTable } from './headerTable/headerTable.tsx'
 import { ModalDeleteDeck } from './modals/modalDeleteDeck.tsx'
@@ -10,7 +14,6 @@ import { ModalEditDeck } from './modals/modalEditDeck.tsx'
 import st from './tableDecks.module.scss'
 
 type PropsType = {
-  myUserIdForTableDecks: string
   decksItems: DecksItemsType[] | undefined
   sendDataToServer: (value: string) => void
   onClickModalDeleteDeck: (idDeck: string) => void
@@ -22,19 +25,22 @@ type PropsType = {
 export const TableDecks = ({
   decksItems,
   sendDataToServer,
-  myUserIdForTableDecks,
   onClickModalDeleteDeck,
   onClickModalEditDeck,
 }: PropsType) => {
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const myUserId = useSelector((state: RootState) => state.auth.myUserId)
+
   const handlerOnClickModalDeleteDeck = (idDeck: string) => {
     onClickModalDeleteDeck(idDeck)
   }
   const handlerOnClickModalEditDeck = (idDeck: string, valueInput: string) => {
     onClickModalEditDeck(idDeck, valueInput)
   }
-  const handlerOnClick = () => {
-    navigate('/cards')
+  const handlerOnClick = (idDeck: string, currentUserId: string) => {
+    dispatch(authActions.setCurrentUserId({ currentUserId }))
+    navigate('/cards/' + idDeck)
   }
 
   return (
@@ -50,8 +56,12 @@ export const TableDecks = ({
 
             <td className={st.tdIcons}>
               <PlayIcon />
-              <CardsIcon width="18" height="18" onClick={handlerOnClick} />
-              {deck.userId === myUserIdForTableDecks && (
+              <CardsIcon
+                width="18"
+                height="18"
+                onClick={() => handlerOnClick(deck.id, deck.userId)}
+              />
+              {deck.userId === myUserId && (
                 <>
                   <ModalEditDeck
                     OnClickModalEditDeck={(valueInput: string) =>

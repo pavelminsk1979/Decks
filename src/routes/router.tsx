@@ -23,7 +23,7 @@ const privateRoutes: RouteObject[] = [
     element: <Profile />,
   },
   {
-    path: '/cards',
+    path: '/cards/:id',
     element: <TableCards />,
   },
 ]

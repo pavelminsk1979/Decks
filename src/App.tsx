@@ -16,6 +16,7 @@ export function App() {
   useEffect(() => {
     if (data) {
       dispatch(authActions.setValueIsLoggedIn({ value: true }))
+      dispatch(authActions.setMyUserId({ myUserId: data.id }))
       navigate('/decks')
     }
   }, [data])
