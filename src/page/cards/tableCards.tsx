@@ -2,12 +2,13 @@ import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { IconArrowBack } from '../../assets/icons/iconArrowBack.tsx'
-import { Button, Typography } from '../../components/ui'
+import { Typography } from '../../components/ui'
 import { useGetCardsQuery } from '../../service/cards/serveceCards.ts'
 import { CardsItemsType } from '../../service/cards/typeCards.ts'
 import { RootState } from '../../service/store.ts'
 
 import { DeckWithCards } from './deckWithCards/deckWithCards.tsx'
+import { ModalCreateCard } from './modalCreateCard/modalCreateCard.tsx'
 import st from './tableCards.module.scss'
 
 export const TableCards = () => {
@@ -32,6 +33,7 @@ export const TableCards = () => {
   if (data) {
     return deckWithCard ? (
       <DeckWithCards
+        id={id}
         currentUserId={currentUserId}
         myUserId={myUserId}
         cardsItems={cardsItems}
@@ -45,8 +47,8 @@ export const TableCards = () => {
         </div>
         <div className={st.blokButtonAddNewCard}>
           <Typography variant={'large'}>Empty Pack</Typography>
+          {currentUserId === myUserId && id && <ModalCreateCard id={id} />}
         </div>
-        {currentUserId === myUserId && <Button variant={'primary'}>Add New Card</Button>}
       </div>
     )
   }

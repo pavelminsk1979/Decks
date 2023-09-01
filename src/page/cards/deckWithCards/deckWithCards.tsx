@@ -3,11 +3,13 @@ import { useState } from 'react'
 import { IconArrowBack } from '../../../assets/icons/iconArrowBack.tsx'
 import { Button, TextField, Typography } from '../../../components/ui'
 import { CardsItemsType } from '../../../service/cards/typeCards.ts'
+import { ModalCreateCard } from '../modalCreateCard/modalCreateCard.tsx'
 
 import st from './deckWithCards.module.scss'
 import { TableWithCards } from './tableWithCards/tableWithCards.tsx'
 
 type PropsType = {
+  id: string
   handlerOnClickBackPage: () => void
   myUserId: string
   cardsItems: CardsItemsType[]
@@ -18,6 +20,7 @@ export const DeckWithCards = ({
   myUserId,
   cardsItems,
   currentUserId,
+  id,
 }: PropsType) => {
   const [valueInput, setValueInput] = useState('')
   const handlerSendInputValue = () => {
@@ -34,7 +37,7 @@ export const DeckWithCards = ({
       {myUserId === currentUserId ? (
         <div className={st.blokButtonAddNewCard}>
           <Typography variant={'large'}>My Pack</Typography>
-          <Button variant={'primary'}>Add New Card</Button>
+          <ModalCreateCard id={id} />
         </div>
       ) : (
         <div className={st.blokButtonAddNewCard}>
