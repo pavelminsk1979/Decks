@@ -6,10 +6,10 @@ const initialStateDecks: ArgsGetDecksResponseType = {
   minCardsCount: 0,
   maxCardsCount: 0,
   name: '',
-  authorId: '',
+  authorId: 'All Cards',
   orderBy: '',
-  currentPage: 0,
-  itemsPerPage: 0,
+  currentPage: 1,
+  itemsPerPage: 8,
 }
 
 const slice = createSlice({
@@ -25,8 +25,8 @@ const slice = createSlice({
     setName(state, action: PayloadAction<{ valueInput: string }>) {
       state.name = action.payload.valueInput
     },
-    setAuthorId(state, action: PayloadAction<{ name: string }>) {
-      state.authorId = action.payload.name
+    setAuthorId(state, action: PayloadAction<{ authorId: string }>) {
+      state.authorId = action.payload.authorId
     },
     setOrderBy(state, action: PayloadAction<{ value: string }>) {
       state.orderBy = action.payload.value

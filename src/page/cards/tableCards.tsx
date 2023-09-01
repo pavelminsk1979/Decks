@@ -30,26 +30,24 @@ export const TableCards = () => {
     navigate('/decks')
   }
 
-  if (data) {
-    return deckWithCard ? (
-      <DeckWithCards
-        id={id}
-        currentUserId={currentUserId}
-        myUserId={myUserId}
-        cardsItems={cardsItems}
-        handlerOnClickBackPage={handlerOnClickBackPage}
-      />
-    ) : (
-      <div className={st.common}>
-        <div className={st.blockArrowBack} onClick={handlerOnClickBackPage}>
-          <IconArrowBack />
-          <Typography variant={'body2'}>Back to Packs List</Typography>
-        </div>
-        <div className={st.blokButtonAddNewCard}>
-          <Typography variant={'large'}>Empty Pack</Typography>
-          {currentUserId === myUserId && id && <ModalCreateCard id={id} />}
-        </div>
+  return deckWithCard ? (
+    <DeckWithCards
+      id={id ?? ''}
+      currentUserId={currentUserId}
+      myUserId={myUserId}
+      cardsItems={cardsItems}
+      handlerOnClickBackPage={handlerOnClickBackPage}
+    />
+  ) : (
+    <div className={st.common}>
+      <div className={st.blockArrowBack} onClick={handlerOnClickBackPage}>
+        <IconArrowBack />
+        <Typography variant={'body2'}>Back to Packs List</Typography>
       </div>
-    )
-  }
+      <div className={st.blokButtonAddNewCard}>
+        <Typography variant={'large'}>Empty Pack</Typography>
+        {currentUserId === myUserId && id && <ModalCreateCard id={id} />}
+      </div>
+    </div>
+  )
 }

@@ -3,16 +3,16 @@ import { useState } from 'react'
 import { Modal, TextField } from '../../../../components/ui'
 
 type PropsType = {
-  onClickModalCreateDeck: (valueInput: string) => void
+  onClickModalCreateDeck: (valueInputModalCreateDeck: string) => void
 }
 export const ModalCreateDeck = ({ onClickModalCreateDeck }: PropsType) => {
-  const [valueInput, setValueInput] = useState('')
+  const [valueInputModalCreateDeck, setValueInputModalCreateDeck] = useState('')
   const handlerOnClickModalCreateDeck = () => {
-    onClickModalCreateDeck(valueInput)
-    setValueInput('')
+    onClickModalCreateDeck(valueInputModalCreateDeck)
+    setValueInputModalCreateDeck('')
   }
   const handlerCloseModal = () => {
-    setValueInput('')
+    setValueInputModalCreateDeck('')
   }
 
   return (
@@ -27,8 +27,8 @@ export const ModalCreateDeck = ({ onClickModalCreateDeck }: PropsType) => {
     >
       <TextField
         sizeWidthTextField="480px"
-        valueInput={valueInput}
-        setValueInput={setValueInput}
+        valueInput={valueInputModalCreateDeck}
+        setValueInput={setValueInputModalCreateDeck}
         placeholder={'Name'}
         label={'Name Deck'}
         type="email"
