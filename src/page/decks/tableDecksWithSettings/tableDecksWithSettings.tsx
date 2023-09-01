@@ -63,11 +63,8 @@ export const TableDecksWithSettings = () => {
   const handlerBattonClearFilter = () => {
     setValueSlider(null)
 
-    let minValue = 0
-    let maxValue = 0
-
-    dispatch(decksActions.setMinCardsCount({ minValue }))
-    dispatch(decksActions.setMaxCardsCount({ maxValue }))
+    dispatch(decksActions.setMinCardsCount({ minValue: 0 }))
+    dispatch(decksActions.setMaxCardsCount({ maxValue: 0 }))
     dispatch(decksActions.setCurrentPage({ currentPage: 1 }))
     dispatch(decksActions.setItemsPerPage({ amountElementsInOnePage: 8 }))
     dispatch(decksActions.setName({ valueInput: '' }))
