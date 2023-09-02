@@ -2,17 +2,21 @@ import { useState } from 'react'
 
 import { EditIcon } from '../../../../../assets/icons/editIcon.tsx'
 import { Modal, TextField } from '../../../../../components/ui'
+import { useEditDecksMutation } from '../../../../../service/decks/serveceDecks.ts'
 
 type PropsType = {
-  OnClickModalEditDeck: (valueInput: string) => void
+  deckId: string
 }
-export const ModalEditDeck = ({ OnClickModalEditDeck }: PropsType) => {
+export const ModalEditDeck = ({ deckId }: PropsType) => {
+  const [editDeck] = useEditDecksMutation()
   const [valueInput, setValueInput] = useState('')
   const handlerCloseModalEditDec = () => {
     setValueInput('')
   }
   const handlerOnClickModalEditDeck = () => {
-    OnClickModalEditDeck(valueInput)
+    const arg = { id: deckId, name: valueInput }
+
+    editDeck(arg)
     setValueInput('')
   }
 

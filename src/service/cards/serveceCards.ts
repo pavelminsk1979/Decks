@@ -29,7 +29,7 @@ export const cardsApi = createApi({
         },
         invalidatesTags: ['Cards'],
       }),
-      deleteCards: build.mutation<any, string>({
+      deleteCards: build.mutation<void, string>({
         query: (id: string) => {
           return {
             method: 'DELETE',

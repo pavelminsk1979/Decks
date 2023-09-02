@@ -5,10 +5,6 @@ import { CardsIcon } from '../../../../assets/icons/iconCards.tsx'
 import { PlayIcon } from '../../../../assets/icons/playIcon.tsx'
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch.ts'
 import { authActions } from '../../../../service/auth/authSlice.ts'
-import {
-  useDeleteDecksMutation,
-  useEditDecksMutation,
-} from '../../../../service/decks/serveceDecks.ts'
 import { DecksItemsType } from '../../../../service/decks/typeDecks.ts'
 import { RootState } from '../../../../service/store.ts'
 
@@ -26,17 +22,7 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const myUserId = useSelector((state: RootState) => state.auth.myUserId)
-  const [deleteDeck] = useDeleteDecksMutation()
-  const [editDeck] = useEditDecksMutation()
 
-  const handlerOnClickModalDeleteDeck = (idDeck: string) => {
-    deleteDeck(idDeck)
-  }
-  const handlerOnClickModalEditDeck = (idDeck: string, valueInput: string) => {
-    const arg = { id: idDeck, name: valueInput }
-
-    editDeck(arg)
-  }
   const handlerOnClick = (idDeck: string, currentUserId: string) => {
     dispatch(authActions.setCurrentUserId({ currentUserId }))
     navigate('/cards/' + idDeck)
@@ -62,16 +48,9 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
               />
               {deck.userId === myUserId && (
                 <>
-                  <ModalEditDeck
-                    OnClickModalEditDeck={(valueInput: string) =>
-                      handlerOnClickModalEditDeck(deck.id, valueInput)
-                    }
-                  />
+                  <ModalEditDeck deckId={deck.id} />
                   <span className={st.modal}>
-                    <ModalDeleteDeck
-                      handlerOnClickModalDeleteDeck={() => handlerOnClickModalDeleteDeck(deck.id)}
-                      nameDeck={deck.name}
-                    />
+                    <ModalDeleteDeck idDeck={deck.id} nameDeck={deck.name} />
                   </span>
                 </>
               )}

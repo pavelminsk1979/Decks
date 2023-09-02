@@ -1,11 +1,17 @@
 import { DeleteIcon } from '../../../../../assets/icons/deleteIcon.tsx'
 import { Modal } from '../../../../../components/ui'
+import { useDeleteDecksMutation } from '../../../../../service/decks/serveceDecks.ts'
 
 type PropsType = {
-  handlerOnClickModalDeleteDeck: () => void
   nameDeck: string
+  idDeck: string
 }
-export const ModalDeleteDeck = ({ handlerOnClickModalDeleteDeck, nameDeck }: PropsType) => {
+export const ModalDeleteDeck = ({ idDeck, nameDeck }: PropsType) => {
+  const [deleteDeck] = useDeleteDecksMutation()
+  const handlerOnClickModalDeleteDeck = () => {
+    deleteDeck(idDeck)
+  }
+
   return (
     <Modal
       icon={<DeleteIcon />}
