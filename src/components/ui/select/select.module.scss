@@ -32,6 +32,7 @@
 .item {
   padding: 6px;
   outline: none;
+  background: var(--color-dark-700);
 
   &:hover {
     background: var(--color-accent-900);
