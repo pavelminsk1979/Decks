@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { customFetchBase } from '../refetch.ts'
 
-import { CardsType, CreateCardType, ResponceCreateCardType } from './typeCards.ts'
+import { CardsType, CreateCardType, EditCardType, ResponceCreateCardType } from './typeCards.ts'
 
 export const cardsApi = createApi({
   reducerPath: 'cardsApi',
@@ -38,8 +38,23 @@ export const cardsApi = createApi({
         },
         invalidatesTags: ['Cards'],
       }),
+      editCards: build.mutation<ResponceCreateCardType, EditCardType>({
+        query: arg => {
+          return {
+            method: 'PATCH',
+            url: `/v1/cards/${arg.id}`,
+            body: { question: arg.question, answer: arg.answer },
+          }
+        },
+        invalidatesTags: ['Cards'],
+      }),
     }
   },
 })
 
-export const { useGetCardsQuery, useCreateCardsMutation, useDeleteCardsMutation } = cardsApi
+export const {
+  useGetCardsQuery,
+  useCreateCardsMutation,
+  useDeleteCardsMutation,
+  useEditCardsMutation,
+} = cardsApi

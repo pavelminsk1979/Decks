@@ -2,6 +2,7 @@ import { DATA_HEADERS_TABLE_CARDS } from '../../../../common/constants.ts'
 import { CardsItemsType } from '../../../../service/cards/typeCards.ts'
 
 import { ModalDeleteCard } from './modalDeleteCard/modalDeleteCard.tsx'
+import { ModalEditCard } from './modalEditCard/modalEditCard.tsx'
 import st from './tableWithCards.module.scss'
 
 type PropsType = {
@@ -31,6 +32,7 @@ export const TableWithCards = ({ cardsItems, currentUserId, myUserId }: PropsTyp
             <td className={st.tdCreatedBy}>{card.grade}</td>
             {myUserId === currentUserId && (
               <td>
+                <ModalEditCard cardId={card.id} />
                 <ModalDeleteCard cardId={card.id} questionCard={card.question} />
               </td>
             )}

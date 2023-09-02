@@ -41,10 +41,16 @@ export type ResponceCreateCardType = {
   created: string
   updated: string
 }
+
 export type CreateCardType = {
   id: string
   body: {
     question: string
     answer: string
   }
+}
+export type EditCardType = {
+  id: string
+  question: string
+  answer: string
 }
