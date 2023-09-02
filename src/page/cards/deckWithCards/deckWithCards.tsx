@@ -58,7 +58,7 @@ export const DeckWithCards = ({
           label={'Write a symbol and  press еnter'}
         />
       </div>
-      <TableWithCards cardsItems={cardsItems} />
+      <TableWithCards currentUserId={currentUserId} myUserId={myUserId} cardsItems={cardsItems} />
     </div>
   )
 }

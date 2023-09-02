@@ -6,6 +6,7 @@ import { CardsType, CreateCardType, ResponceCreateCardType } from './typeCards.t
 
 export const cardsApi = createApi({
   reducerPath: 'cardsApi',
+  tagTypes: ['Cards'],
   baseQuery: customFetchBase,
   endpoints: build => {
     return {
@@ -16,6 +17,7 @@ export const cardsApi = createApi({
             url: `/v1/decks/${id}/cards`,
           }
         },
+        providesTags: ['Cards'],
       }),
       createCards: build.mutation<ResponceCreateCardType, CreateCardType>({
         query: ({ id, body }) => {
@@ -25,9 +27,19 @@ export const cardsApi = createApi({
             body: body,
           }
         },
+        invalidatesTags: ['Cards'],
+      }),
+      deleteCards: build.mutation<any, string>({
+        query: (id: string) => {
+          return {
+            method: 'DELETE',
+            url: `/v1/cards/${id}`,
+          }
+        },
+        invalidatesTags: ['Cards'],
       }),
     }
   },
 })
 
-export const { useGetCardsQuery, useCreateCardsMutation } = cardsApi
+export const { useGetCardsQuery, useCreateCardsMutation, useDeleteCardsMutation } = cardsApi

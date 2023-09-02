@@ -26,16 +26,16 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const myUserId = useSelector((state: RootState) => state.auth.myUserId)
-  const [deleteCard] = useDeleteDecksMutation()
-  const [editCard] = useEditDecksMutation()
+  const [deleteDeck] = useDeleteDecksMutation()
+  const [editDeck] = useEditDecksMutation()
 
   const handlerOnClickModalDeleteDeck = (idDeck: string) => {
-    deleteCard(idDeck)
+    deleteDeck(idDeck)
   }
   const handlerOnClickModalEditDeck = (idDeck: string, valueInput: string) => {
     const arg = { id: idDeck, name: valueInput }
 
-    editCard(arg)
+    editDeck(arg)
   }
   const handlerOnClick = (idDeck: string, currentUserId: string) => {
     dispatch(authActions.setCurrentUserId({ currentUserId }))
