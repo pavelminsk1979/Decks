@@ -54,3 +54,4 @@ export type EditCardType = {
   question: string
   answer: string
 }
+export type RandomCardType = Omit<CardsItemsType, 'userId'>

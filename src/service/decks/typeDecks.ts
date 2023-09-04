@@ -38,6 +38,7 @@ export type ArgsGetDecksResponseType = {
   orderBy?: string | null
   currentPage?: number
   itemsPerPage?: number
+  currentNameDack: string
 }
 
 export type ArgEditType = {

@@ -10,6 +10,7 @@ const initialStateDecks: ArgsGetDecksResponseType = {
   orderBy: '',
   currentPage: 1,
   itemsPerPage: 8,
+  currentNameDack: '',
 }
 
 const slice = createSlice({
@@ -36,6 +37,9 @@ const slice = createSlice({
     },
     setItemsPerPage(state, action: PayloadAction<{ amountElementsInOnePage: number }>) {
       state.itemsPerPage = action.payload.amountElementsInOnePage
+    },
+    setCurrentNameDack(state, action: PayloadAction<{ currentNameDack: string }>) {
+      state.currentNameDack = action.payload.currentNameDack
     },
   },
 })

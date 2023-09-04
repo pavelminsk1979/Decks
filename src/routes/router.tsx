@@ -4,8 +4,8 @@ import { createBrowserRouter, Navigate, Outlet, RouteObject } from 'react-router
 import { App } from '../App.tsx'
 import { Login, Profile, Register } from '../components/ui'
 import { TableCards } from '../page/cards/tableCards.tsx'
-import { LearnQuestion } from '../page/decks/tableDecksWithSettings/tableDecks/learnQuestion/learnQuestion.tsx'
 import { TableDecksWithSettings } from '../page/decks/tableDecksWithSettings/tableDecksWithSettings.tsx'
+import { LearnQuestion } from '../page/learn/learnQuestion/learnQuestion.tsx'
 import { RootState } from '../service/store.ts'
 
 function PrivateRoutes() {

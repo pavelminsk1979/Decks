@@ -5,6 +5,7 @@ import { CardsIcon } from '../../../../assets/icons/iconCards.tsx'
 import { PlayIcon } from '../../../../assets/icons/playIcon.tsx'
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch.ts'
 import { authActions } from '../../../../service/auth/authSlice.ts'
+import { decksActions } from '../../../../service/decks/decksSlice.ts'
 import { DecksItemsType } from '../../../../service/decks/typeDecks.ts'
 import { RootState } from '../../../../service/store.ts'
 
@@ -27,9 +28,12 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
     dispatch(authActions.setCurrentUserId({ currentUserId }))
     navigate('/cards/' + idDeck)
   }
-  const handlerOnClikLearmDeckQuestion = (idDeck: string) => {
+  const handlerOnClikLearmDeckQuestion = (idDeck: string, currentNameDack: string) => {
     navigate('/learnQuestion/' + idDeck)
+    dispatch(decksActions.setCurrentNameDack({ currentNameDack }))
   }
+
+  console.log(decksItems)
 
   return (
     <table className={st.table}>
@@ -43,7 +47,10 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
             <td className={st.tdCreatedBy}>{deck.author.name}</td>
 
             <td className={st.tdIcons}>
-              <PlayIcon onClick={() => handlerOnClikLearmDeckQuestion(deck.id)} />
+              {deck.cardsCount > 0 && (
+                <PlayIcon onClick={() => handlerOnClikLearmDeckQuestion(deck.id, deck.name)} />
+              )}
+
               <CardsIcon
                 width="18"
                 height="18"

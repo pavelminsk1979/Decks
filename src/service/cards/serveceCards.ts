@@ -2,7 +2,13 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { customFetchBase } from '../refetch.ts'
 
-import { CardsType, CreateCardType, EditCardType, ResponceCreateCardType } from './typeCards.ts'
+import {
+  CardsType,
+  CreateCardType,
+  EditCardType,
+  RandomCardType,
+  ResponceCreateCardType,
+} from './typeCards.ts'
 
 export const cardsApi = createApi({
   reducerPath: 'cardsApi',
@@ -48,6 +54,14 @@ export const cardsApi = createApi({
         },
         invalidatesTags: ['Cards'],
       }),
+      getRandomCard: build.query<RandomCardType, string>({
+        query: (id: string) => {
+          return {
+            method: 'GET',
+            url: `/v1/decks/${id}/learn`,
+          }
+        },
+      }),
     }
   },
 })
@@ -57,4 +71,5 @@ export const {
   useCreateCardsMutation,
   useDeleteCardsMutation,
   useEditCardsMutation,
+  useGetRandomCardQuery,
 } = cardsApi
