@@ -27,6 +27,9 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
     dispatch(authActions.setCurrentUserId({ currentUserId }))
     navigate('/cards/' + idDeck)
   }
+  const handlerOnClikLearmDeckQuestion = (idDeck: string) => {
+    navigate('/learnQuestion/' + idDeck)
+  }
 
   return (
     <table className={st.table}>
@@ -40,7 +43,7 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
             <td className={st.tdCreatedBy}>{deck.author.name}</td>
 
             <td className={st.tdIcons}>
-              <PlayIcon />
+              <PlayIcon onClick={() => handlerOnClikLearmDeckQuestion(deck.id)} />
               <CardsIcon
                 width="18"
                 height="18"
