@@ -2,12 +2,18 @@ import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { IconArrowBack } from '../../../../assets/icons/iconArrowBack.tsx'
-import { Button, Typography } from '../../../../components/ui'
+import { Button, RadioGroupComponent, Typography } from '../../../../components/ui'
 import { useGetRandomCardQuery } from '../../../../service/cards/serveceCards.ts'
 import { RootState } from '../../../../service/store.ts'
 
 import st from './learnAnswer.module.scss'
 
+type ElementsRadioType = {
+  id: string
+  name: string
+  text: string
+  disabled: boolean
+}
 export const LearnAnswer = () => {
   const navigate = useNavigate()
   const currentNameDack = useSelector((state: RootState) => state.decks.currentNameDack)
@@ -19,8 +25,16 @@ export const LearnAnswer = () => {
   const handlerOnClickNextQuestion = () => {
     alert('kjjdfkjjsf')
   }
-
-  console.log(data)
+  const stateRadioGroup: ElementsRadioType[] = [
+    { id: '1', text: 'Did not know', name: 'trainGroup', disabled: false },
+    { id: '2', text: 'Forgot', name: 'trainGroup', disabled: false },
+    { id: '3', text: 'A lot of thought', name: 'trainGroup', disabled: false },
+    { id: '4', text: 'Confused', name: 'trainGroup', disabled: false },
+    { id: '5', text: 'Knew the answer', name: 'trainGroup', disabled: false },
+  ]
+  const handlerCallbackRadioGroup = (value: string) => {
+    alert(`Выбрана кнопка с айдишкой ${value}`)
+  }
 
   return (
     <div className={st.common}>
@@ -42,9 +56,15 @@ export const LearnAnswer = () => {
           <Typography variant={'subtitle1'}>Answer: </Typography>
           <Typography variant={'body1'}>{data ? data.answer : ''}</Typography>
         </div>
-        <div>
+
+        <div className={st.radioGroup}>
           <Typography variant={'subtitle1'}>Rate yourself: </Typography>
+          <RadioGroupComponent
+            callback={handlerCallbackRadioGroup}
+            stateRadioGroup={stateRadioGroup}
+          />
         </div>
+
         <Button onClick={handlerOnClickNextQuestion} fullWidth={true}>
           Next Question
         </Button>
