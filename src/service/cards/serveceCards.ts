@@ -8,6 +8,7 @@ import {
   EditCardType,
   RandomCardType,
   ResponceCreateCardType,
+  UpdateGradeCardType,
 } from './typeCards.ts'
 
 export const cardsApi = createApi({
@@ -62,6 +63,15 @@ export const cardsApi = createApi({
           }
         },
       }),
+      updateGradeCards: build.mutation<RandomCardType, UpdateGradeCardType>({
+        query: ({ id, body }) => {
+          return {
+            method: 'POST',
+            url: `/v1/decks/${id}/learn`,
+            body: body,
+          }
+        },
+      }),
     }
   },
 })
@@ -72,4 +82,5 @@ export const {
   useDeleteCardsMutation,
   useEditCardsMutation,
   useGetRandomCardQuery,
+  useUpdateGradeCardsMutation,
 } = cardsApi

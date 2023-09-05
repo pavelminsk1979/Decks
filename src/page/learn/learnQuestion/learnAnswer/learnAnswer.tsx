@@ -3,7 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { IconArrowBack } from '../../../../assets/icons/iconArrowBack.tsx'
 import { Button, RadioGroupComponent, Typography } from '../../../../components/ui'
-import { useGetRandomCardQuery } from '../../../../service/cards/serveceCards.ts'
+import {
+  useGetRandomCardQuery,
+  useUpdateGradeCardsMutation,
+} from '../../../../service/cards/serveceCards.ts'
 import { RootState } from '../../../../service/store.ts'
 
 import st from './learnAnswer.module.scss'
@@ -19,6 +22,7 @@ export const LearnAnswer = () => {
   const currentNameDack = useSelector((state: RootState) => state.decks.currentNameDack)
   const { id } = useParams()
   const { data } = useGetRandomCardQuery(id ?? '')
+  const [updateGradeCard] = useUpdateGradeCardsMutation()
   const handlerOnClickBackPage = () => {
     navigate('/decks')
   }
@@ -33,7 +37,9 @@ export const LearnAnswer = () => {
     { id: '5', text: 'Knew the answer', name: 'trainGroup', disabled: false },
   ]
   const handlerCallbackRadioGroup = (value: string) => {
-    alert(`Выбрана кнопка с айдишкой ${value}`)
+    const body = { cardId: data ? data.id : '', grade: Number(value) }
+
+    updateGradeCard({ id: id ? id : '', body })
   }
 
   return (

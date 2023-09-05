@@ -55,3 +55,11 @@ export type EditCardType = {
   answer: string
 }
 export type RandomCardType = Omit<CardsItemsType, 'userId'>
+
+export type UpdateGradeCardType = {
+  id: string
+  body: {
+    cardId: string
+    grade: number
+  }
+}
