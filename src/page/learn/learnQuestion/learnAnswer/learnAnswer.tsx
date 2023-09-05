@@ -23,7 +23,7 @@ export const LearnAnswer = () => {
     navigate('/decks')
   }
   const handlerOnClickNextQuestion = () => {
-    alert('kjjdfkjjsf')
+    navigate('/learnQuestion/' + id)
   }
   const stateRadioGroup: ElementsRadioType[] = [
     { id: '1', text: 'Did not know', name: 'trainGroup', disabled: false },
