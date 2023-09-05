@@ -33,8 +33,6 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
     dispatch(decksActions.setCurrentNameDack({ currentNameDack }))
   }
 
-  console.log(decksItems)
-
   return (
     <table className={st.table}>
       <HeaderTable sendDataToServer={sendDataToServer} />

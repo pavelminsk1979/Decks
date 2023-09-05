@@ -5,6 +5,7 @@ import { App } from '../App.tsx'
 import { Login, Profile, Register } from '../components/ui'
 import { TableCards } from '../page/cards/tableCards.tsx'
 import { TableDecksWithSettings } from '../page/decks/tableDecksWithSettings/tableDecksWithSettings.tsx'
+import { LearnAnswer } from '../page/learn/learnQuestion/learnAnswer/learnAnswer.tsx'
 import { LearnQuestion } from '../page/learn/learnQuestion/learnQuestion.tsx'
 import { RootState } from '../service/store.ts'
 
@@ -30,6 +31,10 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/learnQuestion/:id',
     element: <LearnQuestion />,
+  },
+  {
+    path: '/learnAnswer/:id',
+    element: <LearnAnswer />,
   },
 ]
 const publicRoutes: RouteObject[] = [
