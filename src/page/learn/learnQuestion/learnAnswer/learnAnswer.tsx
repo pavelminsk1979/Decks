@@ -4,10 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { IconArrowBack } from '../../../../assets/icons/iconArrowBack.tsx'
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch.ts'
 import { Button, RadioGroupComponent, Typography } from '../../../../components/ui'
-import {
-  useGetRandomCardQuery,
-  useUpdateGradeCardsMutation,
-} from '../../../../service/cards/serveceCards.ts'
+import { useGetRandomCardQuery } from '../../../../service/cards/serveceCards.ts'
 import { decksActions } from '../../../../service/decks/decksSlice.ts'
 import { RootState } from '../../../../service/store.ts'
 
@@ -22,18 +19,22 @@ type ElementsRadioType = {
 export const LearnAnswer = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const currentQuestionCard = useSelector((state: RootState) => state.decks.currentQuestionCard)
 
   const currentNameDack = useSelector((state: RootState) => state.decks.currentNameDack)
   const { id } = useParams()
   const { data } = useGetRandomCardQuery(id ?? '')
-
-  const [updateGradeCard, { data: dataResponse }] = useUpdateGradeCardsMutation()
 
   const handlerOnClickBackPage = () => {
     navigate('/decks')
   }
   const handlerOnClickNextQuestion = () => {
     navigate('/learnQuestion/' + id)
+    dispatch(
+      decksActions.setCurrentQuestionCard({
+        currentQuestionCard: '',
+      })
+    )
   }
   const stateRadioGroup: ElementsRadioType[] = [
     { id: '1', text: 'Did not know', name: 'trainGroup', disabled: false },
@@ -44,10 +45,13 @@ export const LearnAnswer = () => {
   ]
   const handlerCallbackRadioGroup = (value: string) => {
     dispatch(decksActions.setCurrentGradeCard({ currentGradeCard: Number(value) }))
-    const body = { cardId: data ? data.id : '', grade: Number(value) }
-
-    updateGradeCard({ id: id ? id : '', body })
   }
+  let currentQuestion = data?.question
+
+  if (currentQuestionCard !== '') {
+    currentQuestion = currentQuestionCard
+  }
+  console.log(currentQuestionCard + 'компонента ОТВЕТ')
 
   return (
     <div className={st.common}>
@@ -59,7 +63,7 @@ export const LearnAnswer = () => {
         <Typography variant={'large'}>{`Learn : "${currentNameDack}"`}</Typography>
         <div className={st.question}>
           <Typography variant={'subtitle1'}>Qusetion: </Typography>
-          <Typography variant={'body1'}>{data ? data.question : ''}</Typography>
+          <Typography variant={'body1'}>{currentQuestionCard ?? currentQuestion}</Typography>
         </div>
         <div className={st.amount}>
           <Typography variant={'body2'}>Количество попыток ответов на вопрос:</Typography>

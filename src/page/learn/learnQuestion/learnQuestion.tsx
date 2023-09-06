@@ -31,18 +31,31 @@ export const LearnQuestion = () => {
 
       updateGradeCard({ id: id ? id : '', body })
       dispatch(decksActions.setCurrentGradeCard({ currentGradeCard: 0 }))
+      console.log(dataResponse)
+      dispatch(
+        decksActions.setCurrentQuestionCard({
+          currentQuestionCard: dataResponse ? dataResponse?.question : '',
+        })
+      )
     }
-  }, [])
+  }, [id, data?.id])
   let currentQuestion = data?.question
 
   if (dataResponse?.question) {
     currentQuestion = dataResponse.question
   }
+  console.log(dataResponse?.question + 'компонента ВОПРОС')
   const handlerOnClickBackPage = () => {
     navigate('/decks')
   }
   const handlerOnClickShowAnswer = () => {
     navigate('/learnAnswer/' + id)
+
+    dispatch(
+      decksActions.setCurrentQuestionCard({
+        currentQuestionCard: dataResponse ? dataResponse?.question : '',
+      })
+    )
   }
 
   return (
