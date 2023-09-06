@@ -39,8 +39,6 @@ export type ArgsGetDecksResponseType = {
   currentPage?: number
   itemsPerPage?: number
   currentNameDack?: string
-  currentGradeCard?: number
-  currentQuestionCard?: string
 }
 
 export type ArgEditType = {

@@ -29,7 +29,7 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
     navigate('/cards/' + idDeck)
   }
   const handlerOnClikLearmDeckQuestion = (idDeck: string, currentNameDack: string) => {
-    navigate('/learnQuestion/' + idDeck)
+    navigate('/learn/' + idDeck)
     dispatch(decksActions.setCurrentNameDack({ currentNameDack }))
   }
 
