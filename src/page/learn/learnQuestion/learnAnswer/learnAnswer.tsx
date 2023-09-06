@@ -2,11 +2,13 @@ import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { IconArrowBack } from '../../../../assets/icons/iconArrowBack.tsx'
+import { useAppDispatch } from '../../../../common/hooks/useAppDispatch.ts'
 import { Button, RadioGroupComponent, Typography } from '../../../../components/ui'
 import {
   useGetRandomCardQuery,
   useUpdateGradeCardsMutation,
 } from '../../../../service/cards/serveceCards.ts'
+import { decksActions } from '../../../../service/decks/decksSlice.ts'
 import { RootState } from '../../../../service/store.ts'
 
 import st from './learnAnswer.module.scss'
@@ -19,10 +21,14 @@ type ElementsRadioType = {
 }
 export const LearnAnswer = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
   const currentNameDack = useSelector((state: RootState) => state.decks.currentNameDack)
   const { id } = useParams()
   const { data } = useGetRandomCardQuery(id ?? '')
-  const [updateGradeCard] = useUpdateGradeCardsMutation()
+
+  const [updateGradeCard, { data: dataResponse }] = useUpdateGradeCardsMutation()
+
   const handlerOnClickBackPage = () => {
     navigate('/decks')
   }
@@ -37,6 +43,7 @@ export const LearnAnswer = () => {
     { id: '5', text: 'Knew the answer', name: 'trainGroup', disabled: false },
   ]
   const handlerCallbackRadioGroup = (value: string) => {
+    dispatch(decksActions.setCurrentGradeCard({ currentGradeCard: Number(value) }))
     const body = { cardId: data ? data.id : '', grade: Number(value) }
 
     updateGradeCard({ id: id ? id : '', body })

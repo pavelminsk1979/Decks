@@ -11,6 +11,7 @@ const initialStateDecks: ArgsGetDecksResponseType = {
   currentPage: 1,
   itemsPerPage: 8,
   currentNameDack: '',
+  currentGradeCard: 0,
 }
 
 const slice = createSlice({
@@ -40,6 +41,9 @@ const slice = createSlice({
     },
     setCurrentNameDack(state, action: PayloadAction<{ currentNameDack: string }>) {
       state.currentNameDack = action.payload.currentNameDack
+    },
+    setCurrentGradeCard(state, action: PayloadAction<{ currentGradeCard: number }>) {
+      state.currentGradeCard = action.payload.currentGradeCard
     },
   },
 })

@@ -1,19 +1,43 @@
+import { useEffect } from 'react'
+
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { IconArrowBack } from '../../../assets/icons/iconArrowBack.tsx'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
 import { Button, Typography } from '../../../components/ui'
-import { useGetRandomCardQuery } from '../../../service/cards/serveceCards.ts'
+import {
+  useGetRandomCardQuery,
+  useUpdateGradeCardsMutation,
+} from '../../../service/cards/serveceCards.ts'
+import { decksActions } from '../../../service/decks/decksSlice.ts'
 import { RootState } from '../../../service/store.ts'
 
 import st from './learnQuestion.module.scss'
 
 export const LearnQuestion = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
   const { id } = useParams()
+  const currentGradeCard = useSelector((state: RootState) => state.decks.currentGradeCard)
   const { data } = useGetRandomCardQuery(id ?? '')
   const currentNameDack = useSelector((state: RootState) => state.decks.currentNameDack)
+  const [updateGradeCard, { data: dataResponse }] = useUpdateGradeCardsMutation()
 
+  useEffect(() => {
+    if (currentGradeCard && currentGradeCard > 0) {
+      const body = { cardId: data ? data.id : '', grade: currentGradeCard }
+
+      updateGradeCard({ id: id ? id : '', body })
+      dispatch(decksActions.setCurrentGradeCard({ currentGradeCard: 0 }))
+    }
+  }, [])
+  let currentQuestion = data?.question
+
+  if (dataResponse?.question) {
+    currentQuestion = dataResponse.question
+  }
   const handlerOnClickBackPage = () => {
     navigate('/decks')
   }
@@ -31,7 +55,7 @@ export const LearnQuestion = () => {
         <Typography variant={'large'}>{`Learn : "${currentNameDack}"`}</Typography>
         <div className={st.question}>
           <Typography variant={'subtitle1'}>Qusetion: </Typography>
-          <Typography variant={'body1'}>{data ? data.question : ''}</Typography>
+          <Typography variant={'body1'}>{currentQuestion}</Typography>
         </div>
         <div className={st.amount}>
           <Typography variant={'body2'}>Количество попыток ответов на вопрос:</Typography>
