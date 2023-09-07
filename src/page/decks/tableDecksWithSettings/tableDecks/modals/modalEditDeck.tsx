@@ -1,13 +1,16 @@
 import { useState } from 'react'
 
 import { EditIcon } from '../../../../../assets/icons/editIcon.tsx'
+import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch.ts'
 import { Modal, TextField } from '../../../../../components/ui'
+import { authActions } from '../../../../../service/auth/authSlice.ts'
 import { useEditDecksMutation } from '../../../../../service/decks/serveceDecks.ts'
 
 type PropsType = {
   deckId: string
 }
 export const ModalEditDeck = ({ deckId }: PropsType) => {
+  const dispatch = useAppDispatch()
   const [editDeck] = useEditDecksMutation()
   const [valueInput, setValueInput] = useState('')
   const handlerCloseModalEditDec = () => {
@@ -17,6 +20,11 @@ export const ModalEditDeck = ({ deckId }: PropsType) => {
     const arg = { id: deckId, name: valueInput }
 
     editDeck(arg)
+      .unwrap()
+      .catch(err => {
+        dispatch(authActions.setCurrentError({ currentError: err.data.errorMessages[0].message }))
+        console.log(err)
+      })
     setValueInput('')
   }
 

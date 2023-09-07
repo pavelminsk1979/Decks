@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch.ts'
 import { Modal, TextField } from '../../../components/ui'
+import { authActions } from '../../../service/auth/authSlice.ts'
 import { useCreateCardsMutation } from '../../../service/cards/serveceCards.ts'
 
 type PropsType = {
@@ -8,6 +10,7 @@ type PropsType = {
 }
 
 export const ModalCreateCard = ({ id }: PropsType) => {
+  const dispatch = useAppDispatch()
   const [createCard] = useCreateCardsMutation()
   const [question, setQuestion] = useState('')
   const [answer, setAnswer] = useState('')
@@ -16,6 +19,10 @@ export const ModalCreateCard = ({ id }: PropsType) => {
 
     if (id !== undefined) {
       createCard({ id, body })
+        .unwrap()
+        .catch(err => {
+          dispatch(authActions.setCurrentError({ currentError: err.data.errorMessages[0].message }))
+        })
     }
     setQuestion('')
     setAnswer('')

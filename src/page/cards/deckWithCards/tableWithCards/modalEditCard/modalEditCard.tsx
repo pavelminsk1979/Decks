@@ -1,13 +1,16 @@
 import { useState } from 'react'
 
 import { EditIcon } from '../../../../../assets/icons/editIcon.tsx'
+import { useAppDispatch } from '../../../../../common/hooks/useAppDispatch.ts'
 import { Modal, TextField } from '../../../../../components/ui'
+import { authActions } from '../../../../../service/auth/authSlice.ts'
 import { useEditCardsMutation } from '../../../../../service/cards/serveceCards.ts'
 
 type PropsType = {
   cardId: string
 }
 export const ModalEditCard = ({ cardId }: PropsType) => {
+  const dispatch = useAppDispatch()
   const [editCard] = useEditCardsMutation()
   const [valueInputQuestion, setValueInputQuestion] = useState('')
   const [valueInputAnswer, setValueInputAnswer] = useState('')
@@ -19,6 +22,10 @@ export const ModalEditCard = ({ cardId }: PropsType) => {
     const arg = { id: cardId, question: valueInputQuestion, answer: valueInputAnswer }
 
     editCard(arg)
+      .unwrap()
+      .catch(err => {
+        dispatch(authActions.setCurrentError({ currentError: err.data.errorMessages[0].message }))
+      })
     setValueInputQuestion('')
     setValueInputAnswer('')
   }
