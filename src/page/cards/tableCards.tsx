@@ -26,7 +26,6 @@ export const TableCards = () => {
       deckWithCard = false
     }
   }
-  console.log(data)
   const handlerOnClickBackPage = () => {
     navigate('/decks')
   }
