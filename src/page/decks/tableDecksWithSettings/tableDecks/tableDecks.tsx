@@ -24,8 +24,9 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
   const navigate = useNavigate()
   const myUserId = useSelector((state: RootState) => state.auth.myUserId)
 
-  const handlerOnClick = (idDeck: string, currentUserId: string) => {
+  const handlerOnClick = (idDeck: string, currentUserId: string, currentNameDack: string) => {
     dispatch(authActions.setCurrentUserId({ currentUserId }))
+    dispatch(decksActions.setCurrentNameDack({ currentNameDack }))
     navigate('/cards/' + idDeck)
   }
   const handlerOnClikLearmDeckQuestion = (idDeck: string, currentNameDack: string) => {
@@ -52,7 +53,7 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
               <CardsIcon
                 width="18"
                 height="18"
-                onClick={() => handlerOnClick(deck.id, deck.userId)}
+                onClick={() => handlerOnClick(deck.id, deck.userId, deck.name)}
               />
               {deck.userId === myUserId && (
                 <>

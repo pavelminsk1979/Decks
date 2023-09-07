@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 import { IconArrowBack } from '../../../assets/icons/iconArrowBack.tsx'
 import { Button, TextField, Typography } from '../../../components/ui'
 import { CardsItemsType } from '../../../service/cards/typeCards.ts'
@@ -22,10 +24,14 @@ export const DeckWithCards = ({
   currentUserId,
   id,
 }: PropsType) => {
+  const navigate = useNavigate()
   const [valueInput, setValueInput] = useState('')
   const handlerSendInputValue = () => {
     alert(valueInput)
     setValueInput('')
+  }
+  const handlerOnClickLearn = () => {
+    navigate('/learn/' + id)
   }
 
   return (
@@ -42,7 +48,9 @@ export const DeckWithCards = ({
       ) : (
         <div className={st.blokButtonAddNewCard}>
           <Typography variant={'large'}>Friend’s Pack</Typography>
-          <Button variant={'primary'}>Learn to Pack</Button>
+          <Button onClick={handlerOnClickLearn} variant={'primary'}>
+            Learn to Pack
+          </Button>
         </div>
       )}
 
