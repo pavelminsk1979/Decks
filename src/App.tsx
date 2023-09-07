@@ -3,10 +3,12 @@ import { useEffect } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
 import { Outlet, useNavigate } from 'react-router-dom'
 
+import { GlobalError } from './common/globalError.tsx'
 import { useAppDispatch } from './common/hooks/useAppDispatch.ts'
 import { Header, Loading } from './components/ui'
 import { authActions } from './service/auth/authSlice.ts'
 import { useMeQuery } from './service/auth/serverceAuth.ts'
+import 'react-toastify/dist/ReactToastify.css'
 
 export function App() {
   const dispatch = useAppDispatch()
@@ -31,6 +33,7 @@ export function App() {
 
   return (
     <div>
+      <GlobalError />
       <Header handlerOnClick={handlerOnClick} />
       {isLoading && <LinearProgress color="inherit" />}
       <Outlet />

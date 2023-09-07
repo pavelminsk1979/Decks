@@ -6,6 +6,7 @@ const initialStateAuth: InitialStateType = {
   isLoggedIn: false,
   myUserId: '',
   currentUserId: '',
+  currentError: null,
 }
 
 const slice = createSlice({
@@ -20,6 +21,9 @@ const slice = createSlice({
     },
     setMyUserId(state, action: PayloadAction<{ myUserId: string }>) {
       state.myUserId = action.payload.myUserId
+    },
+    setCurrentError(state, action: PayloadAction<{ currentError: string | null }>) {
+      state.currentError = action.payload.currentError
     },
   },
 })

@@ -13,6 +13,7 @@ import {
   TextField,
   Typography,
 } from '../../../components/ui'
+import { authActions } from '../../../service/auth/authSlice.ts'
 import { useMeQuery } from '../../../service/auth/serverceAuth.ts'
 import { decksActions } from '../../../service/decks/decksSlice.ts'
 import { useCreateDeckMutation, useGetDecksQuery } from '../../../service/decks/serveceDecks.ts'
@@ -96,6 +97,11 @@ export const TableDecksWithSettings = () => {
   }
   const onClickModalCreateDeck = (valueInputModalCreateDeck: string) => {
     createDeck({ name: valueInputModalCreateDeck })
+      .unwrap()
+      .catch(err => {
+        dispatch(authActions.setCurrentError({ currentError: err.data.errorMessages[0].message }))
+        console.log(err)
+      })
   }
 
   const handlersetValueInput = (valueInput: string) => {
