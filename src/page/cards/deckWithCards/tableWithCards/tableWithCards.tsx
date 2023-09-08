@@ -44,7 +44,11 @@ export const TableWithCards = ({ cardsItems, currentUserId, myUserId }: PropsTyp
             {myUserId === currentUserId && (
               <td>
                 <PlayIcon onClick={() => handlerOnClikLearm(card.deckId)} />
-                <ModalEditCard cardId={card.id} />
+                <ModalEditCard
+                  currentAnswer={card.answer}
+                  curentQuestion={card.question}
+                  cardId={card.id}
+                />
                 <ModalDeleteCard cardId={card.id} questionCard={card.question} />
               </td>
             )}

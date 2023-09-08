@@ -8,12 +8,14 @@ import { useEditCardsMutation } from '../../../../../service/cards/serveceCards.
 
 type PropsType = {
   cardId: string
+  curentQuestion: string
+  currentAnswer: string
 }
-export const ModalEditCard = ({ cardId }: PropsType) => {
+export const ModalEditCard = ({ cardId, curentQuestion, currentAnswer }: PropsType) => {
   const dispatch = useAppDispatch()
   const [editCard] = useEditCardsMutation()
-  const [valueInputQuestion, setValueInputQuestion] = useState('')
-  const [valueInputAnswer, setValueInputAnswer] = useState('')
+  const [valueInputQuestion, setValueInputQuestion] = useState(curentQuestion)
+  const [valueInputAnswer, setValueInputAnswer] = useState(currentAnswer)
   const handlerCloseModalEditCard = () => {
     setValueInputQuestion('')
     setValueInputAnswer('')

@@ -8,11 +8,12 @@ import { useEditDecksMutation } from '../../../../../service/decks/serveceDecks.
 
 type PropsType = {
   deckId: string
+  curentNameDack: string
 }
-export const ModalEditDeck = ({ deckId }: PropsType) => {
+export const ModalEditDeck = ({ deckId, curentNameDack }: PropsType) => {
   const dispatch = useAppDispatch()
   const [editDeck] = useEditDecksMutation()
-  const [valueInput, setValueInput] = useState('')
+  const [valueInput, setValueInput] = useState(curentNameDack)
   const handlerCloseModalEditDec = () => {
     setValueInput('')
   }

@@ -57,7 +57,7 @@ export const TableDecks = ({ decksItems, sendDataToServer }: PropsType) => {
               />
               {deck.userId === myUserId && (
                 <>
-                  <ModalEditDeck deckId={deck.id} />
+                  <ModalEditDeck curentNameDack={deck.name} deckId={deck.id} />
                   <span className={st.modal}>
                     <ModalDeleteDeck idDeck={deck.id} nameDeck={deck.name} />
                   </span>
