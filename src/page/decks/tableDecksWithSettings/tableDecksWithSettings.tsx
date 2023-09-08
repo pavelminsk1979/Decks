@@ -9,6 +9,7 @@ import {
   Button,
   PaginationSamurai,
   SliderBar,
+  SwitchComponent,
   TabPanel,
   TextField,
   Typography,
@@ -111,6 +112,10 @@ export const TableDecksWithSettings = () => {
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />
   }
+  const changeThemeLightDark = (checked: boolean) => {
+    console.log(checked)
+    document.body.classList.toggle('dark-mode', checked)
+  }
 
   return (
     <div className={st.common}>
@@ -161,6 +166,7 @@ export const TableDecksWithSettings = () => {
           setCurrentPage={setCurrentPage}
           allElements={data?.pagination.totalItems}
         />
+        <SwitchComponent handlerOnChackedChange={changeThemeLightDark} />
       </div>
     </div>
   )
