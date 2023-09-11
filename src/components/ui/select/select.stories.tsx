@@ -23,5 +23,6 @@ export const Select: Story = {
     headerSelector: 'Header Selector',
     onValueChange: action('Click'),
     widthBlockSelector: 200,
+    amountDecksInOnePage: 8,
   },
 }

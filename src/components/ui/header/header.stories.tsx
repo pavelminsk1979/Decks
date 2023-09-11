@@ -15,14 +15,12 @@ type Story = StoryObj<typeof meta>
 
 export const HeaderStory1: Story = {
   args: {
-    isLoggedIn: true,
     handlerOnClick: action('Click'),
   },
 }
 
 export const HeaderStory2: Story = {
   args: {
-    isLoggedIn: false,
     handlerOnClick: action('1111'),
   },
 }
