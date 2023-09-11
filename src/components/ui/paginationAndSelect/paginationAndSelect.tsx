@@ -16,7 +16,7 @@ export const PaginationAndSelect = () => {
   ]
   let widthBlockSelector = 80
   let headerSelector = '100'
-  const handlerOnValueChange = (value: string | undefined) => {
+  const handlerOnValueChange = (value: number | undefined) => {
     alert(value ? `это значение из компоненты PaginationAndSelect ${value}` : 'underfined')
   }
 

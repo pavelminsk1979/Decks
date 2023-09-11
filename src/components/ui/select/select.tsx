@@ -13,7 +13,7 @@ type PropsType = {
   stateSelectItems: ItemType[]
   headerSelector: string
   onValueChange: (value: number) => void
-  amountDecksInOnePage: number
+  amountDecksInOnePage?: number
 }
 
 export const SelectControl = ({
