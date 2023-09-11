@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions'
 import { Meta, StoryObj } from '@storybook/react'
 
 import st from './tabPanel.module.scss'
-import { itemTabType, TabPanel } from './tabPanel.tsx'
+import { TabPanel } from './tabPanel.tsx'
 
 const meta = {
   title: 'Components/TabPanel',
@@ -24,18 +24,7 @@ export const TabPanel1: Story = {
       { id: 'tab2', name: 'All', onClick: action('ClickAll'), disabled: false },
       { id: 'tab3', name: 'Трейтья', onClick: action('ClickТретья'), disabled: false },
     ],
-    active: 'My',
-    title: 'Title',
-  },
-}
-
-export const TabPanel2: Story = {
-  args: {
-    data: [
-      { id: 'tab1', name: 'My', onClick: action('ClickMy'), disabled: false },
-      { id: 'tab2', name: 'All', onClick: action('ClickAll'), disabled: false },
-      { id: 'tab3', name: 'Трейтья', onClick: action('ClickТретья'), disabled: false },
-    ],
+    handlerOnClick: action('handlerOnClick'),
     active: 'All',
     title: 'Title',
   },
@@ -63,7 +52,7 @@ export const TabPanelAction: Story = {
     return (
       <Tabs.Root>
         <Tabs.List>
-          {data.map((e: itemTabType) => {
+          {data.map((e: any) => {
             return (
               <Tabs.Trigger
                 disabled={e.disabled}

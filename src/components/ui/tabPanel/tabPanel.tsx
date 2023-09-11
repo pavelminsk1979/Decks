@@ -9,6 +9,7 @@ type PropsType = {
   active: string
   title: string
   handlerOnClick: (name: string) => void
+  data?: any
 }
 
 export const TabPanel = ({ active, title, handlerOnClick }: PropsType) => {

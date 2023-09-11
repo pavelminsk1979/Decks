@@ -15,7 +15,8 @@ type Story = StoryObj<typeof meta>
 
 export const Slider: Story = {
   args: {
-    startArrayValue: [1, 100],
-    onValueCommit: action('value slider'),
+    startMaxValueSlider: 100,
+    valueSliderSendSever: action('value slider'),
+    processResetAndValueSliderNull: null,
   },
 }
