@@ -45,10 +45,6 @@ const publicRoutes: RouteObject[] = [
     path: '/404',
     element: <h2>404: СТРАНИЦА НЕ НАЙДЕНА...ОШИБКА!</h2>,
   },
-  {
-    path: '/',
-    element: <Login />,
-  },
 ]
 
 export const router = createBrowserRouter([
